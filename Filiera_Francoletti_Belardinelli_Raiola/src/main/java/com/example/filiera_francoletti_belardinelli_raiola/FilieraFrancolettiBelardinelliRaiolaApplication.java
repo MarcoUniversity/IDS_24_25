@@ -8,6 +8,7 @@ public class FilieraFrancolettiBelardinelliRaiolaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FilieraFrancolettiBelardinelliRaiolaApplication.class, args);
+        System.out.println("Ciao");
     }
 
 }
