@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- Parent Spring Boot (versione stabile) -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.2</version>
+        <version>3.1.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
+    <!-- Coordinate principali del progetto -->
     <groupId>com.example</groupId>
     <artifactId>Filiera_Francoletti_Belardinelli_Raiola</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Filiera_Francoletti_Belardinelli_Raiola</name>
-    <description>Filiera_Francoletti_Belardinelli_Raiola</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+    <description>Progetto Spring Boot di esempio</description>
+
+    <!-- Proprietà generali -->
     <properties>
         <java.version>17</java.version>
     </properties>
+
+    <!-- Dipendenze -->
     <dependencies>
+        <!-- Starter Web: include Spring MVC, Tomcat, e dipendenze base di Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Starter Test: per test unitari e di integrazione -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -42,6 +42,7 @@
         </dependency>
     </dependencies>
 
+    <!-- Build: plugin di Spring Boot per eseguire l'app con 'mvn spring-boot:run' -->
     <build>
         <plugins>
             <plugin>
