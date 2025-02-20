@@ -10,6 +10,7 @@ public class FilieraFrancolettiBelardinelliRaiolaApplication {
         SpringApplication.run(FilieraFrancolettiBelardinelliRaiolaApplication.class, args);
         System.out.println("Ciao");
         System.out.println("Miao");
+        System.out.println("prova");
     }
 
 }
