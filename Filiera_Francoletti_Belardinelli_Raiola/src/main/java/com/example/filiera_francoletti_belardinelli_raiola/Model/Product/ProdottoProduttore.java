@@ -9,8 +9,8 @@ import java.util.List;
 public class ProdottoProduttore extends Prodotto {
     private List<Indirizzo> cultivationProcess;
 
-    public ProdottoProduttore(String name, double price, String description, Date expiration, List<Indirizzo> processingLocation, boolean state, Venditore seller, List<Indirizzo>  cultivationProcess) {
-        super(name, price, description, expiration, processingLocation, state, seller);
+    public ProdottoProduttore(String name, double price, String description, Date expiration, List<Indirizzo> processingLocation, Venditore seller, List<Indirizzo>  cultivationProcess) {
+        super(name, price, description, expiration, processingLocation, seller);
         this.cultivationProcess = cultivationProcess;
     }
 
