@@ -79,6 +79,13 @@ public abstract class Venditore implements IVenditore, Subscriber {
         return this.idSeller;
     }
 
+    public HandlerVenditore getHandlerProduct() {
+        return handlerProduct;
+    }
+    public HandlerInvito getHandlerInvite() {
+        return handlerInvite;
+    }
+
     @Override
     public void update() {
 
