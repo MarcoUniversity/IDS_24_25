@@ -11,12 +11,12 @@ public class Prodotto {
     private double price;
     private String description;
     private Date expiration;
-    private List<Indirizzo> processingLocation;
+    private Indirizzo processingLocation;
     private boolean state;
     private Venditore seller;
-    private int idProdotto=0;
+    private int idProduct =0;
 
-    public Prodotto(String name, double price, String description, Date expiration, List<Indirizzo> processingLocation, Venditore seller) {
+    public Prodotto(String name, double price, String description, Date expiration, Indirizzo processingLocation, Venditore seller) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -24,7 +24,7 @@ public class Prodotto {
         this.processingLocation = processingLocation;
         this.state = false;
         this.seller = seller;
-        this.idProdotto ++;
+        this.idProduct++;
     }
 
     public String getName() {
@@ -59,11 +59,11 @@ public class Prodotto {
         this.expiration = expiration;
     }
 
-    public List<Indirizzo> getProcessingLocation() {
+    public Indirizzo getProcessingLocation() {
         return processingLocation;
     }
 
-    public void setProcessingLocation(List<Indirizzo> processingLocation) {
+    public void setProcessingLocation(Indirizzo processingLocation) {
         this.processingLocation = processingLocation;
     }
 
@@ -84,10 +84,10 @@ public class Prodotto {
     }
 
     public int getId() {
-        return idProdotto;
+        return idProduct;
     }
 
     public void setId(int id) {
-        this.idProdotto = id;
+        this.idProduct = id;
     }
 }

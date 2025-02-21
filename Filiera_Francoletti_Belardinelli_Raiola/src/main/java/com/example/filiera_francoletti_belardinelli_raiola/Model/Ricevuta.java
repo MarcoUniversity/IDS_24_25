@@ -1,0 +1,4 @@
+package com.example.filiera_francoletti_belardinelli_raiola.Model;
+
+public class Ricevuta {
+}
