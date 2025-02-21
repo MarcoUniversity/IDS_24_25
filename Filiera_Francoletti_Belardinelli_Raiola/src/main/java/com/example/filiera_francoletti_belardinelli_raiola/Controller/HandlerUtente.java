@@ -27,9 +27,9 @@ public class HandlerUtente {
         return platform.getMap();
     }
 
-    public Indirizzo traceProduct(int id) {
+    /*public Indirizzo traceProduct(int id) {
         return platform.getMap().getListOfAddresses();
-    }
+    }*/
 
     public Piattaforma getPlatform() {
         return platform;
