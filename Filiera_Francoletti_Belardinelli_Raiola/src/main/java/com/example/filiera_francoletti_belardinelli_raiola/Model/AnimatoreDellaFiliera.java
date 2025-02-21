@@ -1,5 +1,7 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerAnimatore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,8 @@ public class AnimatoreDellaFiliera {
     }
 
     public List<Evento> getEventsCreated() {
-        return animatorHandler.getEvents();
+        //return animatorHandler.getEvents();
+        return null;
     }
 
     public List<Subscriber> getSubscribers() {
@@ -36,7 +39,7 @@ public class AnimatoreDellaFiliera {
 
     public Evento createEvent(String name, String description, int maxPeople, Indirizzo place) {
         Evento event = new Evento(name, description, maxPeople, place);
-        animatorHandler.addEvent(event);
+        //animatorHandler.addEvent(event);
         notify();
         return event;
     }
@@ -57,11 +60,11 @@ public class AnimatoreDellaFiliera {
         }
     }
 
-    public Invito sendInvite(Venditore receiver, Evento event, String description) {
+    /*public Invito sendInvite(Venditore receiver, Evento event, String description) {
         return new Invito(receiver, event, description);
-    }
+    }*/
 
     public void removeEvent(int id) {
-        animatorHandler.removeEvent(id);
+        //animatorHandler.removeEvent(id);
     }
 }
