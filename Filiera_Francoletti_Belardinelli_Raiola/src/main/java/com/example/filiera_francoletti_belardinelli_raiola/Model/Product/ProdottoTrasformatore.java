@@ -7,16 +7,17 @@ import java.util.Date;
 
 public class ProdottoTrasformatore extends Prodotto {
 
-    private String cultivationProcess;
-    public ProdottoTrasformatore(String name, double price, String description, Date expiration, Indirizzo processingLocation, Venditore seller, String cultivationProcess) {
+    private String transformationProcess;
+
+    public ProdottoTrasformatore(String name, double price, String description, Date expiration, Indirizzo processingLocation, Venditore seller, String transformationProcess) {
         super(name, price, description, expiration, processingLocation, seller);
-        this.cultivationProcess = cultivationProcess;
+        this.transformationProcess = transformationProcess;
     }
-    public String getCultivationProcess() {
-        return cultivationProcess;
+    public String getTransformationProcess() {
+        return transformationProcess;
     }
 
-    public void setCultivationProcess(String cultivationProcess) {
-        this.cultivationProcess = cultivationProcess;
+    public void setTransformationProcess(String transformationProcess) {
+        this.transformationProcess = transformationProcess;
     }
 }

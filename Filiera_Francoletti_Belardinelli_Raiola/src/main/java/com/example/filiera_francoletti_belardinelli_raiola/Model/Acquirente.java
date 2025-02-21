@@ -20,8 +20,13 @@ public class Acquirente {
     }
 
     public void removeProduct(int id) {
+<<<<<<< HEAD
         buyerHandler.removeProduct(id);
     }
+=======
+        buyerHandler.removeProductFromCart(id);
+    }*/
+>>>>>>> ff5e24d0edf221ab6a54e319b711e648bd98d324
 
     public Carrello getShoppingCart() {
         return buyerHandler.getShoppingCart();
