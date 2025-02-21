@@ -6,13 +6,14 @@ public class Evento {
     private String description;
     private int maxPeople;
     private Indirizzo place;
-    private int id;
+    private static int idEvento=0;
 
     public Evento(String name, String description, int maxPeople, Indirizzo place) {
         this.name = name;
         this.description = description;
         this.maxPeople = maxPeople;
         this.place = place;
+        this.idEvento++;
     }
 
     public String getName() {
@@ -48,12 +49,9 @@ public class Evento {
     }
 
     public int getId() {
-        return id;
+        return idEvento;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }
 
 

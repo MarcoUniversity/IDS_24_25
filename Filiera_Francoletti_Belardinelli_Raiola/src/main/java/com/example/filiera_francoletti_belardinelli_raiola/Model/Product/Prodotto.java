@@ -14,16 +14,17 @@ public class Prodotto {
     private List<Indirizzo> processingLocation;
     private boolean state;
     private Venditore seller;
-    private int id;
+    private int idProdotto=0;
 
-    public Prodotto(String name, double price, String description, Date expiration, List<Indirizzo> processingLocation, boolean state, Venditore seller) {
+    public Prodotto(String name, double price, String description, Date expiration, List<Indirizzo> processingLocation, Venditore seller) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.expiration = expiration;
         this.processingLocation = processingLocation;
-        this.state = state;
+        this.state = false;
         this.seller = seller;
+        this.idProdotto ++;
     }
 
     public String getName() {
@@ -83,10 +84,10 @@ public class Prodotto {
     }
 
     public int getId() {
-        return id;
+        return idProdotto;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idProdotto = id;
     }
 }

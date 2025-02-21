@@ -62,7 +62,7 @@ public class AnimatoreDellaFiliera {
     }
 
     /*public Invito sendInvite(Venditore receiver, Evento event, String description) {
-        return new Invito(receiver, event, description);
+        return new Invito(this, receiver, event, description);
     }*/
 
     public void removeEvent(int id) {
