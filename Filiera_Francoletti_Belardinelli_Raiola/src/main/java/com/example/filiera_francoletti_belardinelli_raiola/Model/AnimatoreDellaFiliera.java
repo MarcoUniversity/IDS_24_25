@@ -1,6 +1,7 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerAnimatore;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;
 
 import java.util.ArrayList;
 import java.util.List;
