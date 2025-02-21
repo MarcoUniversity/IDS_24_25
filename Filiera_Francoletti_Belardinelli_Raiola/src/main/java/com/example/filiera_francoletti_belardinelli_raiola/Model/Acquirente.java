@@ -21,14 +21,14 @@ public class Acquirente {
 
     public void removeProduct(int id) {
         buyerHandler.removeProductFromCart(id);
-    }
+    }*/
 
     public Carrello getShoppingCart() {
         return buyerHandler.getShoppingCart();
     }
 
     public List<Pagamento> getPayments() {
-        return buyerHandler.getPaymentHistory();
-    }*/
+        return buyerHandler.getPayments();
+    }
 }
 
