@@ -8,15 +8,15 @@ public class Piattaforma {
     private List<Prodotto> productInPlatform;
     private List<Evento> eventInPlatform;
     private Mappa map;
-    private static Piattaforma instance;
+    private static Piattaforma instancePlatform;
 
     private Piattaforma() {}
 
     public static Piattaforma getPlatform() {
-        if (instance == null) {
-            instance = new Piattaforma();
+        if (instancePlatform == null) {
+            instancePlatform = new Piattaforma();
         }
-        return instance;
+        return instancePlatform;
     }
 
     public List<Prodotto> getProductInPlatform() {

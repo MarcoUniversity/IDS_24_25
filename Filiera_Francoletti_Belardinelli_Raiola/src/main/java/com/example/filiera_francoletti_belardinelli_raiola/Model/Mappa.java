@@ -4,17 +4,17 @@ import java.util.List;
 
 public class Mappa {
     private List<Indirizzo> listOfAddresses;
-    private static Mappa instance;
+    private static Mappa instanceMap;
 
     private Mappa() {
         // Costruttore privato per implementare il pattern Singleton
     }
 
     public static Mappa getMap() {
-        if (instance == null) {
-            instance = new Mappa();
+        if (instanceMap == null) {
+            instanceMap = new Mappa();
         }
-        return instance;
+        return instanceMap;
     }
 
     public List<Indirizzo> getListOfAddresses() {

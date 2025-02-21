@@ -1,7 +1,9 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Model.ContenutoSocial;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Social;
 
 import java.util.List;
 
@@ -42,8 +44,9 @@ public class HandlerVenditore {
         return product != null && product.isState();
     }
 
-    public void socialPromotion(String description, int id, Venditore seller) {
-
+    public void socialPromotion(String description, Prodotto product, Venditore seller) {
+        Social social=Social.getSocial();
+        social.addSocialAdvertisement(new ContenutoSocial(product,seller,description));
     }
 }
 

@@ -56,7 +56,7 @@ public abstract class Venditore implements IVenditore, Subscriber {
     }
 
     public void socialPromotion(String description,int id){
-        this.handlerProduct.socialPromotion(description,id,this);
+        this.handlerProduct.socialPromotion(description,this.getProductById(id),this);
     }
 
     public List<Prodotto> viewProducts (){

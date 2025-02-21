@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Model.AnimatoreDellaFiliera;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Evento;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Invito;
@@ -23,10 +24,8 @@ public class HandlerAnimatore {
         this.eventsCreated = eventsCreated;
     }
 
-    public Evento createEvent(String name, String description, int maxPeople, Indirizzo place) {
-        Evento event = new Evento(name, description, maxPeople, place);
-        eventsCreated.add(event);
-        return event;
+    public void createEvent(Evento event) {
+        this.eventsCreated.add(event);
     }
 
     public Evento getEventsById(int id) {

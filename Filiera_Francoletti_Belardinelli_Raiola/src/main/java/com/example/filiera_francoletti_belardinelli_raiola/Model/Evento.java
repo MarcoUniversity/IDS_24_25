@@ -6,13 +6,15 @@ public class Evento {
     private String description;
     private int maxPeople;
     private Indirizzo place;
+    private AnimatoreDellaFiliera creator;
     private static int idEvent =0;
 
-    public Evento(String name, String description, int maxPeople, Indirizzo place) {
+    public Evento(String name, String description, int maxPeople, Indirizzo place,AnimatoreDellaFiliera creator) {
         this.name = name;
         this.description = description;
         this.maxPeople = maxPeople;
         this.place = place;
+        this.creator = creator;
         this.idEvent++;
     }
 
@@ -52,6 +54,13 @@ public class Evento {
         return idEvent;
     }
 
+    public AnimatoreDellaFiliera getCreator() {
+        return creator;
+    }
+
+    public void setCreator(AnimatoreDellaFiliera creator) {
+        this.creator = creator;
+    }
 }
 
 
