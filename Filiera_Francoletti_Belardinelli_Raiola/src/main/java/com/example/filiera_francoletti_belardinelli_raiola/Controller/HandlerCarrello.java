@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class HandlerCarrello {
     }
 
     public void addProduct(int id) {
-        Prodotto newProduct = getProductById(id);
-        products.add(newProduct);
+        Piattaforma pf=Piattaforma.getPlatform();
+        products.add(pf.getProductByID(id));
     }
 
     public void removeProduct(int id) {

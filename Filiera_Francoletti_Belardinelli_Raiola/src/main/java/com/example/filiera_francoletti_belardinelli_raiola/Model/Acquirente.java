@@ -11,16 +11,16 @@ public class Acquirente {
         this.buyerHandler = buyerHandler;
     }
 
-   /* public void addProduct(int id) {
-        buyerHandler.addProductToCart(id);
+    public void addProduct(int id) {
+        buyerHandler.addProduct(id);
     }
 
     public Ricevuta pay() {
-        return buyerHandler.pay().getInvoice();
+        return buyerHandler.pay(this).getInvoice();
     }
 
     public void removeProduct(int id) {
-        buyerHandler.removeProductFromCart(id);
+        buyerHandler.removeProduct(id);
     }
 
     public Carrello getShoppingCart() {
@@ -28,7 +28,7 @@ public class Acquirente {
     }
 
     public List<Pagamento> getPayments() {
-        return buyerHandler.getPaymentHistory();
-    }*/
+        return buyerHandler.getPayments();
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Acquirente;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Carrello;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Pagamento;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Ricevuta;
@@ -19,11 +20,11 @@ public class HandlerAcquirente {
         shoppingCart.addProduct(id);
     }
 
-    /*public Pagamento pay() {
-        Pagamento pagamento = new Pagamento(this, shoppingCart, new Ricevuta("Invoice for purchase"));
+    public Pagamento pay(Acquirente payer) {
+        Pagamento pagamento = new Pagamento(payer, shoppingCart, new Ricevuta("Invoice for purchase"));
         payments.add(pagamento);
         return pagamento;
-    }*/
+    }
 
     public void removeProduct(int id) {
         shoppingCart.removeProduct(id);
