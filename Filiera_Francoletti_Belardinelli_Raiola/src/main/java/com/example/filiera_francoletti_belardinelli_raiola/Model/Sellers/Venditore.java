@@ -8,7 +8,7 @@ public class Venditore implements IVenditore {
 
 
     @Override
-    public ProdottoProduttore loadProduct(String name, double price, String description, Date expiration, String cultivationProcess) {
+    public ProdottoProduttore loadProduct(String name, double price, String description, Date expiration) {
         return null;
     }
 }
