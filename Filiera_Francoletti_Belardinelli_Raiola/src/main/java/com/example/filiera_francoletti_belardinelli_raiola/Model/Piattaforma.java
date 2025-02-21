@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerPiattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.List;
 public class Piattaforma {
     private List<Prodotto> productInPlatform;
     private List<Evento> eventInPlatform;
-    private Mappa map;
     private static Piattaforma instancePlatform;
 
     private Piattaforma() {}
@@ -51,13 +51,24 @@ public class Piattaforma {
         eventInPlatform.removeIf(event -> event.getId() == id);
     }
 
-    public Mappa getMap() {
-        return map;
+    public Prodotto getProductByID(int id) {
+        for (Prodotto product : productInPlatform) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
     }
 
-    public void setMap(Mappa map) {
-        this.map = map;
+    public Evento getEventByID(int id) {
+        for (Evento event : eventInPlatform) {
+            if (event.getId() == id) {
+                return event;
+            }
+        }
+        return null;
     }
+
 
 }
 

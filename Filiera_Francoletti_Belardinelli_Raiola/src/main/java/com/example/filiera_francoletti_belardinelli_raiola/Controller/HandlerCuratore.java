@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
 import java.util.List;
@@ -37,7 +38,9 @@ public class HandlerCuratore {
     }
 
     public void upload(Prodotto product) {
-        productsToVerify.add(product);
+
+        Piattaforma platform=Piattaforma.getPlatform();
+        platform.addProductInPlatform(product);
     }
 }
 

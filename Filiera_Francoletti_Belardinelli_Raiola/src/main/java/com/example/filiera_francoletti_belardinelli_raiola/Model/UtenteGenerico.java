@@ -43,23 +43,23 @@ public class UtenteGenerico implements Subscriber {
     }
 
     public List<Prodotto> viewProducts() {
-        // Return list of products
-        return null;
+        Piattaforma pf=Piattaforma.getPlatform();
+        return pf.getProductInPlatform();
     }
 
     public List<Evento> viewEvents() {
-        // Return list of events
-        return null;
+        Piattaforma pf=Piattaforma.getPlatform();
+        return pf.getEventInPlatform();
     }
 
     public Mappa viewMap() {
-        // Return map
-        return null;
+        Mappa map=Mappa.getMap();
+        return map.getMap();
     }
 
-    public List<Indirizzo> traceProduct(int id) {
-        // Return list of addresses where the product has been traced
-        return null;
+    public Indirizzo traceProduct(int id) {
+        Piattaforma pf=Piattaforma.getPlatform();
+        return pf.getProductByID(id).getProcessingLocation();
     }
 }
 

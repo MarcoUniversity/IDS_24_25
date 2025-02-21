@@ -31,7 +31,7 @@ public class Curatore {
     }
 
     public List<Prodotto> getProductsList() {
-        return curatorHandler.getAllProducts();
+        return curatorHandler.getProductsToVerify();
     }
 
     public Prodotto getProductById(int id) {
