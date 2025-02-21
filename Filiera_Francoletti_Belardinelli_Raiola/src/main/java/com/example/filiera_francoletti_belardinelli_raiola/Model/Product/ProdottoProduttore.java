@@ -6,18 +6,18 @@ import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Vendito
 import java.util.Date;
 
 public class ProdottoProduttore extends Prodotto {
-    private Indirizzo cultivationProcess;
+    private String cultivationProcess;
 
-    public ProdottoProduttore(String name, double price, String description, Date expiration, Indirizzo processingLocation, Venditore seller, Indirizzo  cultivationProcess) {
+    public ProdottoProduttore(String name, double price, String description, Date expiration, Indirizzo processingLocation, Venditore seller, String  cultivationProcess) {
         super(name, price, description, expiration, processingLocation, seller);
         this.cultivationProcess = cultivationProcess;
     }
 
-    public Indirizzo getCultivationProcess() {
+    public String getCultivationProcess() {
         return cultivationProcess;
     }
 
-    public void setCultivationProcess(Indirizzo cultivationProcess) {
+    public void setCultivationProcess(String cultivationProcess) {
         this.cultivationProcess = cultivationProcess;
     }
 }
