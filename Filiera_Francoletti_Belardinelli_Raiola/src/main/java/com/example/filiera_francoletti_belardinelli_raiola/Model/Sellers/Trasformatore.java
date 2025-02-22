@@ -3,17 +3,31 @@ package com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers;
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerInvito;
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerVenditore;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.ProdottoTrasformatore;
 
 import java.util.Date;
 
 public class Trasformatore extends Venditore{
 
-    public Trasformatore(String name, Indirizzo address, HandlerVenditore handlerProduct, HandlerInvito handlerInvite) {
-        super(name, address, handlerProduct, handlerInvite);
+    private String transformationProcess;
+
+    public Trasformatore(String name, Indirizzo address,String transformationProcess) {
+        super(name, address);
+        this.transformationProcess = transformationProcess;
     }
-    public void loadProduct(String name, double price, String description, Date expiration, String transformationProcess) {
-        this.getHandlerProduct().loadProduct(new ProdottoTrasformatore(name, price, description, expiration, this.getAddress(),this,transformationProcess));
+
+    @Override
+    protected Prodotto createProduct(String name, double price, String description, Date expiration) {
+        return new ProdottoTrasformatore(name, price, description, expiration, getAddress(), this, transformationProcess);
+    }
+
+    public String getTransformationProcess() {
+        return transformationProcess;
+    }
+
+    public void setTransformationProcess(String transformationProcess) {
+        this.transformationProcess = transformationProcess;
     }
 
 }

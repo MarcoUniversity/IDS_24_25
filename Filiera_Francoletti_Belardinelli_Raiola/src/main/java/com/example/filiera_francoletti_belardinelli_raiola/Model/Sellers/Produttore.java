@@ -10,10 +10,21 @@ import java.util.Date;
 
 public class Produttore extends Venditore
 {
-    public Produttore(String name, Indirizzo address, HandlerVenditore handlerProduct, HandlerInvito handlerInvite) {
-        super(name, address, handlerProduct, handlerInvite);
+    private String cultivationProcess;
+
+    public Produttore(String name, Indirizzo address,String cultivationProcess) {
+        super(name, address);
+        this.cultivationProcess = cultivationProcess;
     }
-    public void loadProduct(String name, double price, String description, Date expiration, String cultivationProcess) {
-        this.getHandlerProduct().loadProduct(new ProdottoProduttore(name,price,description,expiration,this.getAddress(),this,cultivationProcess));
+    @Override
+    protected Prodotto createProduct(String name, double price, String description, Date expiration) {
+        return new ProdottoProduttore(name, price, description, expiration, getAddress(), this, cultivationProcess);
+    }
+    public String getCultivationProcess() {
+        return cultivationProcess;
+    }
+
+    public void setCultivationProcess(String cultivationProcess) {
+        this.cultivationProcess = cultivationProcess;
     }
 }

@@ -19,7 +19,7 @@ public abstract class Venditore implements IVenditore {
     private HandlerVenditore handlerProduct;
     private HandlerInvito handlerInvite;
 
-    public Venditore(String name, Indirizzo address, HandlerVenditore handlerProduct, HandlerInvito handlerInvite) {
+    public Venditore(String name, Indirizzo address) {
         this.name = name;
         this.address = address;
         this.idSeller ++;
@@ -45,11 +45,11 @@ public abstract class Venditore implements IVenditore {
 
     @Override
     public final void loadProduct(String name, double price, String description, Date expiration) {
-        //Prodotto product = createProduct(name, price, description, expiration);
-        //this.handlerProduct.loadProduct(product);
+        Prodotto product = createProduct(name, price, description, expiration);
+        this.handlerProduct.loadProduct(product);
     }
 
-    //protected abstract Prodotto createProduct(String name, double price, String description, Date expiration);
+    protected abstract Prodotto createProduct(String name, double price, String description, Date expiration);
 
 
     public void manageInvite(int id){
