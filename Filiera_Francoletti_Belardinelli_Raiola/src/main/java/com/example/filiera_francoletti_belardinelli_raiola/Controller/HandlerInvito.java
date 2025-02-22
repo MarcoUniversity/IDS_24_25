@@ -1,10 +1,12 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Invito;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class HandlerInvito {
     private List<Invito> invite;
 

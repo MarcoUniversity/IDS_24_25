@@ -2,10 +2,12 @@ package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class HandlerCarrello {
     private List<Prodotto> products;
 

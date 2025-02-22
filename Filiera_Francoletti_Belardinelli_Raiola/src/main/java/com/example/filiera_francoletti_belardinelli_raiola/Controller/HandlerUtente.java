@@ -5,9 +5,11 @@ import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Mappa;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class HandlerUtente {
 
     public HandlerUtente() {}
