@@ -14,7 +14,8 @@ public class Prodotto {
     private Indirizzo processingLocation;
     private boolean state;
     private Venditore seller;
-    private int idProduct =0;
+    private int nextIdProduct =0;
+    private int idProduct;
 
     public Prodotto(String name, double price, String description, Date expiration, Indirizzo processingLocation, Venditore seller) {
         this.name = name;
@@ -24,7 +25,7 @@ public class Prodotto {
         this.processingLocation = processingLocation;
         this.state = false;
         this.seller = seller;
-        this.idProduct++;
+        this.idProduct=++nextIdProduct;
     }
 
     public String getName() {

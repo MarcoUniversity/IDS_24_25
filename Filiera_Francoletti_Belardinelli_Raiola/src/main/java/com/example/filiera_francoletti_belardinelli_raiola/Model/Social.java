@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Social {
@@ -9,9 +10,10 @@ public class Social {
 
     private Social() {
         //Costruttore privato per implementare il design pattern singleton
+        listOfSocialAdvertisement = new ArrayList<ContenutoSocial>();
     }
 
-    public static Social getSocial() {
+    public static synchronized Social getSocial() {
         if (instanceSocial == null) {
             instanceSocial = new Social();
         }

@@ -2,6 +2,7 @@ package com.example.filiera_francoletti_belardinelli_raiola.Model;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Piattaforma {
@@ -9,9 +10,12 @@ public class Piattaforma {
     private List<Evento> eventInPlatform;
     private static Piattaforma instancePlatform;
 
-    private Piattaforma() {}
+    private Piattaforma() {
+        productInPlatform = new ArrayList<>();
+        eventInPlatform = new ArrayList<>();
+    }
 
-    public static Piattaforma getPlatform() {
+    public static synchronized Piattaforma getPlatform() {
         if (instancePlatform == null) {
             instancePlatform = new Piattaforma();
         }

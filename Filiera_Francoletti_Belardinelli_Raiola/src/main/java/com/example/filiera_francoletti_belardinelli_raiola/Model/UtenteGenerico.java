@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerUtente;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import java.util.List;
 
@@ -7,11 +8,13 @@ public class UtenteGenerico implements Subscriber {
     private String name;
     private String email;
     private String password;
+    private HandlerUtente userHandler;
 
     public UtenteGenerico(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.userHandler=new HandlerUtente();
     }
 
     public String getName() {
@@ -39,27 +42,26 @@ public class UtenteGenerico implements Subscriber {
     }
 
     public void update() {
-        // Update logic here
+        System.out.println("Nuovo evento in piattaforma!");
     }
 
     public List<Prodotto> viewProducts() {
-        Piattaforma pf=Piattaforma.getPlatform();
-        return pf.getProductInPlatform();
+        return userHandler.viewProducts();
+
     }
 
     public List<Evento> viewEvents() {
-        Piattaforma pf=Piattaforma.getPlatform();
-        return pf.getEventInPlatform();
+        return userHandler.viewEvents();
+
     }
 
     public Mappa viewMap() {
-        Mappa map=Mappa.getMap();
-        return map.getMap();
+        return userHandler.viewMap();
+
     }
 
     public Indirizzo traceProduct(int id) {
-        Piattaforma pf=Piattaforma.getPlatform();
-        return pf.getProductByID(id).getProcessingLocation();
+        return userHandler.traceProduct(id);
     }
 }
 

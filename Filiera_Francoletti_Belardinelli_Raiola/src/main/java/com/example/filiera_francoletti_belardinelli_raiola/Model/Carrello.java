@@ -8,24 +8,29 @@ import java.util.List;
 public class Carrello {
     private HandlerCarrello shoppingCartHandler;
 
-    public Carrello(HandlerCarrello shoppingCartHandler) {
-        this.shoppingCartHandler = shoppingCartHandler;
+    public Carrello() {
+
+        this.shoppingCartHandler = new HandlerCarrello();
     }
 
     public List<Prodotto> getProducts() {
-        return shoppingCartHandler.getProducts();
+        return this.shoppingCartHandler.getProducts();
     }
 
     public Prodotto getProductById(int id) {
-        return shoppingCartHandler.getProductById(id);
+        return this.shoppingCartHandler.getProductById(id);
     }
 
     public void addProduct(int id) {
-        shoppingCartHandler.addProduct(id);
+        this.shoppingCartHandler.addProduct(id);
     }
 
     public void removeProduct(int id) {
-        shoppingCartHandler.removeProduct(id);
+        this.shoppingCartHandler.removeProduct(id);
+    }
+
+    public HandlerCarrello getShoppingCartHandler() {
+        return this.shoppingCartHandler;
     }
 }
 

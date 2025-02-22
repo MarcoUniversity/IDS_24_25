@@ -5,13 +5,15 @@ import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodott
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Social;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HandlerVenditore {
     private List<Prodotto> uploadedProducts;
 
     public HandlerVenditore(List<Prodotto> uploadedProducts) {
-        this.uploadedProducts = uploadedProducts;
+
+        this.uploadedProducts = (uploadedProducts != null) ? uploadedProducts : new ArrayList<>();
     }
 
     public List<Prodotto> getUploadedProducts() {
@@ -19,11 +21,14 @@ public class HandlerVenditore {
     }
 
     public void setUploadedProducts(List<Prodotto> listOfProduct) {
-        this.uploadedProducts = listOfProduct;
+
+        this.uploadedProducts = (listOfProduct != null) ? listOfProduct : new ArrayList<>();
     }
 
     public void loadProduct(Prodotto product) {
-        uploadedProducts.add(product);
+        if (product != null) {
+            uploadedProducts.add(product);
+        }
     }
 
     public void removeProduct(int id) {
@@ -45,8 +50,10 @@ public class HandlerVenditore {
     }
 
     public void socialPromotion(String description, Prodotto product, Venditore seller) {
-        Social social=Social.getSocial();
-        social.addSocialAdvertisement(new ContenutoSocial(product,seller,description));
+        if (product != null && seller != null && description != null) {
+            Social social = Social.getSocial();
+            social.addSocialAdvertisement(new ContenutoSocial(product, seller, description));
+        }
     }
 }
 

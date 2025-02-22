@@ -8,7 +8,8 @@ public class Invito {
     private Evento event;
     private String description;
     private boolean accepted;
-    private static int idInvite =0;
+    private static int nextIdInvite =0;
+    private int idInvite;
 
     public Invito(AnimatoreDellaFiliera sender, Venditore receiver, Evento event, String description) {
         this.sender = sender;
@@ -16,7 +17,7 @@ public class Invito {
         this.event = event;
         this.description = description;
         this.accepted = false;
-        this.idInvite++;
+        this.idInvite=++nextIdInvite;
     }
 
     public AnimatoreDellaFiliera getSender() {

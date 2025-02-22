@@ -3,13 +3,18 @@ package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HandlerCuratore {
     private List<Prodotto> productsToVerify;
 
     public HandlerCuratore(List<Prodotto> productsToVerify) {
-        this.productsToVerify = productsToVerify;
+        if (productsToVerify == null) {
+            this.productsToVerify = new ArrayList<>();
+        } else {
+            this.productsToVerify = productsToVerify;
+        };
     }
 
     public List<Prodotto> getProductsToVerify() {
@@ -21,9 +26,11 @@ public class HandlerCuratore {
     }
 
     public Prodotto getProductById(int id) {
-        for (Prodotto product : productsToVerify) {
-            if (product.getId() == id) {
-                return product;
+        if (productsToVerify != null) {
+            for (Prodotto product : productsToVerify) {
+                if (product.getId() == id) {
+                    return product;
+                }
             }
         }
         return null;
@@ -38,9 +45,10 @@ public class HandlerCuratore {
     }
 
     public void upload(Prodotto product) {
-
-        Piattaforma platform=Piattaforma.getPlatform();
-        platform.addProductInPlatform(product);
+        if (product != null) {
+            Piattaforma platform = Piattaforma.getPlatform();
+            platform.addProductInPlatform(product);
+        }
     }
 }
 

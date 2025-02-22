@@ -9,30 +9,33 @@ import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodott
 import java.util.List;
 
 public class HandlerUtente {
-    private Piattaforma platform;
 
-    public HandlerUtente(Piattaforma platform) {
-        this.platform = platform;
-    }
+    public HandlerUtente() {}
 
     public List<Prodotto> viewProducts() {
-        return platform.getProductInPlatform();
+
+        Piattaforma pf = Piattaforma.getPlatform();
+        return pf.getProductInPlatform();
     }
 
     public List<Evento> viewEvents() {
-        return platform.getEventInPlatform();
+        Piattaforma pf = Piattaforma.getPlatform();
+        return pf.getEventInPlatform();
     }
 
     public Mappa viewMap() {
-        return platform.getMap();
+        Mappa map=Mappa.getMap();
+        return map;
     }
 
-    /*public Indirizzo traceProduct(int id) {
-        return platform.getMap().getListOfAddresses();
-    }*/
-
-    public Piattaforma getPlatform() {
-        return platform;
+    public Indirizzo traceProduct(int id) {
+        Piattaforma pf = Piattaforma.getPlatform();
+        Prodotto prod = pf.getProductByID(id);
+        if (prod != null) {
+            return prod.getProcessingLocation();
+        }
+        return null;
     }
+
 }
 

@@ -3,16 +3,19 @@ package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HandlerCarrello {
     private List<Prodotto> products;
 
-    public HandlerCarrello(List<Prodotto> products) {
-        this.products = products;
+    public HandlerCarrello() {
+
+        this.products = new ArrayList<>();
     }
 
     public List<Prodotto> getProducts() {
+
         return products;
     }
 
@@ -21,8 +24,11 @@ public class HandlerCarrello {
     }
 
     public void addProduct(int id) {
-        Piattaforma pf=Piattaforma.getPlatform();
-        products.add(pf.getProductByID(id));
+        Piattaforma pf = Piattaforma.getPlatform();
+        Prodotto found = pf.getProductByID(id);
+        if (found != null) {
+            products.add(found);
+        }
     }
 
     public void removeProduct(int id) {

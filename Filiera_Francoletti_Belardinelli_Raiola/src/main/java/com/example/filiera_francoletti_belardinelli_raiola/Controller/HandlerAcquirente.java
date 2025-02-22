@@ -5,29 +5,30 @@ import com.example.filiera_francoletti_belardinelli_raiola.Model.Carrello;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Pagamento;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Ricevuta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HandlerAcquirente {
     private Carrello shoppingCart;
     private List<Pagamento> payments;
 
-    public HandlerAcquirente(Carrello shoppingCart, List<Pagamento> payments) {
-        this.shoppingCart = shoppingCart;
-        this.payments = payments;
+    public HandlerAcquirente() {
+        this.shoppingCart = new Carrello();
+        this.payments = new ArrayList<>();
     }
 
     public void addProduct(int id) {
-        shoppingCart.addProduct(id);
+        this.shoppingCart.addProduct(id);
     }
 
     public Pagamento pay(Acquirente payer) {
         Pagamento pagamento = new Pagamento(payer, shoppingCart, new Ricevuta("Invoice for purchase"));
-        payments.add(pagamento);
+        this.payments.add(pagamento);
         return pagamento;
     }
 
     public void removeProduct(int id) {
-        shoppingCart.removeProduct(id);
+        this.shoppingCart.removeProduct(id);
     }
 
     public Carrello getShoppingCart() {

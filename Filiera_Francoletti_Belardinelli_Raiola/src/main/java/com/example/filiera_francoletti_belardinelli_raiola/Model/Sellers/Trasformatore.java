@@ -15,6 +15,7 @@ public class Trasformatore extends Venditore{
     public void loadProduct(String name, double price, String description, Date expiration, String transformationProcess) {
         this.getHandlerProduct().loadProduct(new ProdottoTrasformatore(name, price, description, expiration, this.getAddress(),this,transformationProcess));
     }
+
 }
 
 

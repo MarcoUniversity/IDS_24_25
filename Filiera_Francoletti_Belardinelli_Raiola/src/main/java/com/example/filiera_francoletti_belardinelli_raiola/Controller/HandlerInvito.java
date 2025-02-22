@@ -1,13 +1,16 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Invito;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class HandlerInvito {
     private List<Invito> invite;
 
     public HandlerInvito(List<Invito> invite) {
-        this.invite = invite;
+
+        this.invite = (invite != null) ? invite : new ArrayList<>();
     }
 
     public List<Invito> getInvite() {
@@ -15,7 +18,14 @@ public class HandlerInvito {
     }
 
     public void setInvite(List<Invito> invite) {
-        this.invite = invite;
+
+        this.invite = (invite != null) ? invite : new ArrayList<>();
+    }
+
+    public void addInvite(Invito invite) {
+        if (invite != null) {
+            this.invite.add(invite);
+        }
     }
 
     public void manageInvite(int id) {

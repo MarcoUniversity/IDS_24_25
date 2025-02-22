@@ -7,10 +7,11 @@ import com.example.filiera_francoletti_belardinelli_raiola.Model.Invito;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Subscriber;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Venditore implements IVenditore, Subscriber {
+public abstract class Venditore implements IVenditore {
 
     private String name;
     private Indirizzo address;
@@ -22,8 +23,8 @@ public abstract class Venditore implements IVenditore, Subscriber {
         this.name = name;
         this.address = address;
         this.idSeller ++;
-        this.handlerProduct = handlerProduct;
-        this.handlerInvite = handlerInvite;
+        this.handlerProduct = new HandlerVenditore(new ArrayList<>());
+        this.handlerInvite =new HandlerInvito(new ArrayList<>());
     }
 
     public String getName() {
@@ -43,9 +44,13 @@ public abstract class Venditore implements IVenditore, Subscriber {
     }
 
     @Override
-    public void loadProduct(String name, double price, String description, Date expiration) {
-        this.handlerProduct.loadProduct(new Prodotto(name,price,description,expiration,this.address,this));
+    public final void loadProduct(String name, double price, String description, Date expiration) {
+        //Prodotto product = createProduct(name, price, description, expiration);
+        //this.handlerProduct.loadProduct(product);
     }
+
+    //protected abstract Prodotto createProduct(String name, double price, String description, Date expiration);
+
 
     public void manageInvite(int id){
         this.handlerInvite.manageInvite(id);
@@ -56,8 +61,10 @@ public abstract class Venditore implements IVenditore, Subscriber {
     }
 
     public void socialPromotion(String description,int id){
-        this.handlerProduct.socialPromotion(description,this.getProductById(id),this);
-    }
+        Prodotto product = this.getProductById(id);
+        if (product != null) {
+            this.handlerProduct.socialPromotion(description, product, this);
+        }    }
 
     public List<Prodotto> viewProducts (){
         return this.handlerProduct.getUploadedProducts();
@@ -86,8 +93,5 @@ public abstract class Venditore implements IVenditore, Subscriber {
         return handlerInvite;
     }
 
-    @Override
-    public void update() {
 
-    }
 }

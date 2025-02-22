@@ -12,8 +12,9 @@ import java.util.List;
 public class HandlerAnimatore {
     private List<Evento> eventsCreated;
 
-    public HandlerAnimatore() {
-        this.eventsCreated = new ArrayList<>();
+    public HandlerAnimatore(List<Evento> eventsCreated) {
+
+        this.eventsCreated = (eventsCreated != null) ? eventsCreated : new ArrayList<>();
     }
 
     public List<Evento> getEventsCreated() {
@@ -25,7 +26,9 @@ public class HandlerAnimatore {
     }
 
     public void createEvent(Evento event) {
-        this.eventsCreated.add(event);
+        if (event != null) {
+            this.eventsCreated.add(event);
+        }
     }
 
     public Evento getEventsById(int id) {
@@ -37,9 +40,10 @@ public class HandlerAnimatore {
         return null;
     }
 
-    public Invito sendInvite(Venditore receiver, Evento event, String description) {
-        //return new Invito(receiver, event, description);
-        return null;
+    public Invito sendInvite(AnimatoreDellaFiliera sender, Venditore receiver, Evento event, String description) {
+        Invito invite = new Invito(sender, receiver, event, description);
+        receiver.getHandlerInvite().addInvite(invite);
+        return invite;
     }
 
     public void removeEvent(int id) {

@@ -11,9 +11,9 @@ public class AnimatoreDellaFiliera {
     private HandlerAnimatore animatorHandler;
     private List<Subscriber> subscribers;
 
-    public AnimatoreDellaFiliera(String name, HandlerAnimatore animatorHandler) {
+    public AnimatoreDellaFiliera(String name) {
         this.name = name;
-        this.animatorHandler = animatorHandler;
+        this.animatorHandler = new HandlerAnimatore(new ArrayList<>());
         this.subscribers = new ArrayList<Subscriber>();
     }
 
@@ -34,12 +34,12 @@ public class AnimatoreDellaFiliera {
     }
 
     public void setSubscribers(List<Subscriber> subscribers) {
-        this.subscribers = subscribers;
+        this.subscribers = (subscribers != null) ? subscribers : new ArrayList<>();
     }
 
     public void createEvent(String name, String description, int maxPeople, Indirizzo place) {
         Evento event = new Evento(name, description, maxPeople, place,this);
-        this.animatorHandler.createEvent(new Evento(name,description,maxPeople,place,this));
+        this.animatorHandler.createEvent(event);
         notify();
     }
 
@@ -59,8 +59,8 @@ public class AnimatoreDellaFiliera {
         }
     }
 
-    public Invito sendInvite(Venditore receiver, Evento event, String description) {
-        return new Invito(this, receiver, event, description);
+    public void sendInvite(Venditore receiver, Evento event, String description) {
+        this.animatorHandler.sendInvite(this, receiver, event, description);
     }
 
     public void removeEvent(int id) {
