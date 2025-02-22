@@ -1,7 +1,11 @@
-package com.example.filiera_francoletti_belardinelli_raiola.Model;
+package com.example.filiera_francoletti_belardinelli_raiola.Model.Users;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerUtente;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Evento;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Mappa;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
+
 import java.util.List;
 
 public class UtenteGenerico implements Subscriber {

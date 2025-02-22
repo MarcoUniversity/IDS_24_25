@@ -1,9 +1,9 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Model.ContenutoSocial;
+import ContenutoSocial;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Social;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Social.Social;
 
 import java.util.ArrayList;
 import java.util.List;

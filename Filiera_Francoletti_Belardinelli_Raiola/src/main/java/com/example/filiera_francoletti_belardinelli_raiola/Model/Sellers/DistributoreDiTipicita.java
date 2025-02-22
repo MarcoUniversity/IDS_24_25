@@ -1,13 +1,10 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerInvito;
-import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerVenditore;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.ProdottoDistributore;
 
 import java.util.Date;
-import java.util.List;
 
 public class DistributoreDiTipicita extends Venditore implements IBuilder{
 

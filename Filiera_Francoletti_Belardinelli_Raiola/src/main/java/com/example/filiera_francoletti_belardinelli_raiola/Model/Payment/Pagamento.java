@@ -1,4 +1,6 @@
-package com.example.filiera_francoletti_belardinelli_raiola.Model;
+package com.example.filiera_francoletti_belardinelli_raiola.Model.Payment;
+
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Users.Acquirente;
 
 public class Pagamento {
     private Acquirente payer;

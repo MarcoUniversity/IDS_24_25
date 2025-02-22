@@ -2,10 +2,9 @@ package com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerInvito;
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerVenditore;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Indirizzo;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Invito;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Invito;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Subscriber;
 
 import java.util.ArrayList;
 import java.util.Date;

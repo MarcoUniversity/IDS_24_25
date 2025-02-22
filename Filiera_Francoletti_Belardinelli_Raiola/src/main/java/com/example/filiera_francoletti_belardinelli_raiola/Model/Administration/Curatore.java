@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.Model;
+package com.example.filiera_francoletti_belardinelli_raiola.Model.Administration;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerCuratore;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;

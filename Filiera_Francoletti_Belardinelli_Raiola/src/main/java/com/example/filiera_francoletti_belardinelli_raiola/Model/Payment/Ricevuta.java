@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.Model;
+package com.example.filiera_francoletti_belardinelli_raiola.Model.Payment;
 
 public class Ricevuta {
     private String invoice;

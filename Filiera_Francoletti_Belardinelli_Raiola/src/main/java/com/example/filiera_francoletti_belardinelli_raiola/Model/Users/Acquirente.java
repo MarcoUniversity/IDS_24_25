@@ -1,8 +1,9 @@
-package com.example.filiera_francoletti_belardinelli_raiola.Model;
+package com.example.filiera_francoletti_belardinelli_raiola.Model.Users;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerAcquirente;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Payment.Ricevuta;
 
-public class Acquirente extends UtenteGenerico{
+public class Acquirente extends UtenteGenerico {
     private HandlerAcquirente buyerHandler;
 
     public Acquirente(String name, String email, String password) {

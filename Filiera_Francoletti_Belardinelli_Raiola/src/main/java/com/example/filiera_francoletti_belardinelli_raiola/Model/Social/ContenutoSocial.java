@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.Model;
+package com.example.filiera_francoletti_belardinelli_raiola.Model.Social;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;

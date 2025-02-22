@@ -1,9 +1,9 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Acquirente;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Carrello;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Pagamento;
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Ricevuta;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Users.Acquirente;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Payment.Carrello;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Payment.Pagamento;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Payment.Ricevuta;
 
 import java.util.ArrayList;
 import java.util.List;

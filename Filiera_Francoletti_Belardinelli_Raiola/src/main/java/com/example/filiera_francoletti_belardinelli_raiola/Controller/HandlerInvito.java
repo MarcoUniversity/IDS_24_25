@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Invito;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Invito;
 
 import java.util.ArrayList;
 import java.util.List;

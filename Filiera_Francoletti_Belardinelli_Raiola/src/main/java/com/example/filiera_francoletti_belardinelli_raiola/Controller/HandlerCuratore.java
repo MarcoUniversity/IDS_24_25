@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Piattaforma;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
 import java.util.ArrayList;

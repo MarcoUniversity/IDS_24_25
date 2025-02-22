@@ -1,10 +1,9 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Product;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;
 
 import java.util.Date;
-import java.util.List;
 
 public class Prodotto {
     private String name;
