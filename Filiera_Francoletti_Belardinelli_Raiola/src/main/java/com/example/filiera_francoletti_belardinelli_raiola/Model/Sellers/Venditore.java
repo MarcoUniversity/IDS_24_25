@@ -32,6 +32,7 @@ public abstract class Venditore implements IVenditore {
     private HandlerInvito handlerInvite;
 
     public Venditore() {
+        // Costruttore vuoto richiesto da JPA
     }
 
     public Venditore(String name, Indirizzo address) {
