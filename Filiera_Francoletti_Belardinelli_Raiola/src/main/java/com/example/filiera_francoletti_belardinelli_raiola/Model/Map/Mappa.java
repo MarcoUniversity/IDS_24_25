@@ -1,8 +1,11 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Map;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Mappa {
     private List<Indirizzo> listOfAddresses;
     private static Mappa instanceMap;

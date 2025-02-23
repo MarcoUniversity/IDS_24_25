@@ -3,10 +3,12 @@ package com.example.filiera_francoletti_belardinelli_raiola.Model.Administration
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Evento;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Mappa;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Piattaforma {
     private List<Prodotto> productInPlatform;
     private List<Evento> eventInPlatform;
