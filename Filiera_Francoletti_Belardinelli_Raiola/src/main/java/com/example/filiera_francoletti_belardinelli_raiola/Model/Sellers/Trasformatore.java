@@ -3,12 +3,19 @@ package com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.ProdottoTrasformatore;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
 import java.util.Date;
-
+@Entity
+@DiscriminatorValue("TRASFORMATORE")
 public class Trasformatore extends Venditore{
 
     private String transformationProcess;
+
+    public Trasformatore() {
+        super();
+    }
 
     public Trasformatore(String name, Indirizzo address,String transformationProcess) {
         super(name, address);

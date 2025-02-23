@@ -3,13 +3,22 @@ package com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.ProdottoDistributore;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 
 import java.util.Date;
 
+@Entity
+@DiscriminatorValue("DISTRIBUTORE")
 public class DistributoreDiTipicita extends Venditore implements IBuilder{
 
+    @Transient
     private ProdottoDistributore currentBundle = null;
 
+    public DistributoreDiTipicita() {
+        super();
+    }
     public DistributoreDiTipicita(String name, Indirizzo address) {
         super(name, address);
     }

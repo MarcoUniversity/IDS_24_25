@@ -1,6 +1,7 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Administration;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Evento;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Mappa;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
 
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ public class Piattaforma {
     }
 
     public void addProductInPlatform(Prodotto product) {
+
+        Mappa map= Mappa.getMap();
+        map.addIndirizzo(product.getProcessingLocation());
         productInPlatform.add(product);
     }
 
@@ -49,6 +53,8 @@ public class Piattaforma {
 
     public void addEventInPlatform(Evento event) {
         eventInPlatform.add(event);
+        Mappa map= Mappa.getMap();
+        map.addIndirizzo(event.getPlace());
     }
 
     public void removeEvent(int id) {

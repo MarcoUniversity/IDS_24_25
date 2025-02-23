@@ -1,5 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.AnimatoreDellaFiliera;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Evento;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Invito;
@@ -29,6 +30,8 @@ public class HandlerAnimatore {
     public void createEvent(Evento event) {
         if (event != null) {
             this.eventsCreated.add(event);
+            Piattaforma pf=Piattaforma.getPlatform();
+            pf.addEventInPlatform(event);
         }
     }
 

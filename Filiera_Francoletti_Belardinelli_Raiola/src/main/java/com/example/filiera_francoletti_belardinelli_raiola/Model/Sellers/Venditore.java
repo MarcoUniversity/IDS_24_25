@@ -5,23 +5,38 @@ import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerVen
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Events.Invito;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_venditore", discriminatorType = DiscriminatorType.STRING)
 public abstract class Venditore implements IVenditore {
 
     private String name;
+
+    @Embedded
     private Indirizzo address;
-    private static int idSeller=0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Transient
     private HandlerVenditore handlerProduct;
+    @Transient
     private HandlerInvito handlerInvite;
+
+    public Venditore() {
+    }
 
     public Venditore(String name, Indirizzo address) {
         this.name = name;
         this.address = address;
-        this.idSeller ++;
         this.handlerProduct = new HandlerVenditore(new ArrayList<>());
         this.handlerInvite =new HandlerInvito(new ArrayList<>());
     }
@@ -81,8 +96,8 @@ public abstract class Venditore implements IVenditore {
         return this.handlerInvite.getInviteById(id);
     }
 
-    public int getId(){
-        return this.idSeller;
+    public Long getId(){
+        return this.id;
     }
 
     public HandlerVenditore getHandlerProduct() {
