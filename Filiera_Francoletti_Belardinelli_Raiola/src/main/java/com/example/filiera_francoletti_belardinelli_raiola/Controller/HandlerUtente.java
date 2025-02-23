@@ -30,7 +30,7 @@ public class HandlerUtente {
         return map;
     }
 
-    public Indirizzo traceProduct(int id) {
+    public Indirizzo traceProduct(Long id) {
         Piattaforma pf = Piattaforma.getPlatform();
         Prodotto prod = pf.getProductByID(id);
         if (prod != null) {

@@ -1,9 +1,11 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Model.Users.Acquirente;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Payment.Carrello;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Payment.Pagamento;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Payment.Ricevuta;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.Model.Users.Acquirente;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +21,14 @@ public class HandlerAcquirente {
         this.payments = new ArrayList<>();
     }
 
-    public void addProduct(int id) {
-        this.shoppingCart.addProduct(id);
+    public void addProduct(Long id) {
+        Piattaforma pt = Piattaforma.getPlatform();
+        Prodotto p = pt.getProductByID(id);
+        this.shoppingCart.addProduct(p);
     }
 
     public Pagamento pay(Acquirente payer) {
-        Pagamento pagamento = new Pagamento(payer, shoppingCart, new Ricevuta("Invoice for purchase"));
+        Pagamento pagamento = new Pagamento(payer, this.shoppingCart, new Ricevuta("Invoice for purchase"));
         this.payments.add(pagamento);
         return pagamento;
     }

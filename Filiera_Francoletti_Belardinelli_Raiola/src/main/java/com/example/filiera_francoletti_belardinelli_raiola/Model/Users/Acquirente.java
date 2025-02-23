@@ -32,7 +32,7 @@ public class Acquirente extends UtenteGenerico {
     }
 
     // Metodi di business delegati al buyerHandler
-    public void addProduct(int id) {
+    public void addProduct(Long id) {
         buyerHandler.addProduct(id);
     }
 

@@ -25,7 +25,7 @@ public class HandlerCarrello {
         this.products = products;
     }
 
-    public void addProduct(int id) {
+    public void addProduct(Long id) {
         Piattaforma pf = Piattaforma.getPlatform();
         Prodotto found = pf.getProductByID(id);
         if (found != null) {

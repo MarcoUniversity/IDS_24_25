@@ -61,7 +61,7 @@ public class Piattaforma {
         eventInPlatform.removeIf(event -> event.getId() == id);
     }
 
-    public Prodotto getProductByID(int id) {
+    public Prodotto getProductByID(Long id) {
         for (Prodotto product : productInPlatform) {
             if (product.getId() == id) {
                 return product;
@@ -70,7 +70,7 @@ public class Piattaforma {
         return null;
     }
 
-    public Evento getEventByID(int id) {
+    public Evento getEventByID(Long id) {
         for (Evento event : eventInPlatform) {
             if (event.getId() == id) {
                 return event;

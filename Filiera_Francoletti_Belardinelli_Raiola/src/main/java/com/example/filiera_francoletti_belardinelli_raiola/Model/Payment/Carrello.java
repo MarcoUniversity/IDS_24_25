@@ -1,36 +1,35 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Payment;
 
-import com.example.filiera_francoletti_belardinelli_raiola.Controller.HandlerCarrello;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Product.Prodotto;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Carrello {
-    private HandlerCarrello shoppingCartHandler;
 
-    public Carrello() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        this.shoppingCartHandler = new HandlerCarrello();
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Prodotto> products = new ArrayList<>();
 
-    public List<Prodotto> getProducts() {
-        return this.shoppingCartHandler.getProducts();
-    }
+    public Carrello() {}
 
-    public Prodotto getProductById(int id) {
-        return this.shoppingCartHandler.getProductById(id);
-    }
+    public List<Prodotto> getProducts() { return products; }
 
-    public void addProduct(int id) {
-        this.shoppingCartHandler.addProduct(id);
+    public void addProduct(Prodotto product) {
+        if (product != null) {
+            products.add(product);
+        }
     }
 
     public void removeProduct(int id) {
-        this.shoppingCartHandler.removeProduct(id);
+        products.removeIf(product -> product.getId().intValue() == id);
     }
 
-    public HandlerCarrello getShoppingCartHandler() {
-        return this.shoppingCartHandler;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 }
-
