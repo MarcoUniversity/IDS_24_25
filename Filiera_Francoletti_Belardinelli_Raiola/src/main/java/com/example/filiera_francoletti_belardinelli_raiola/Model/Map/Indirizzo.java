@@ -1,5 +1,10 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Map;
 
+import jakarta.persistence.Embeddable;
+
+import java.util.Objects;
+
+@Embeddable
 public class Indirizzo {
     private String address;
     private int number;
@@ -7,6 +12,10 @@ public class Indirizzo {
     public Indirizzo(String address, int number) {
         this.address = address;
         this.number = number;
+    }
+
+    public Indirizzo() {
+
     }
 
     public String getAddress() {
@@ -26,7 +35,14 @@ public class Indirizzo {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(!(o instanceof Indirizzo)) return false;
+        Indirizzo that = (Indirizzo) o;
+        return number == that.number && Objects.equals(this.address, that.address);
+    }
+    @Override
     public String toString() {
-        return address + " " + number;
+        return this.address + " " + this.number;
     }
 }

@@ -1,15 +1,25 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Events;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;
+import jakarta.persistence.*;
 
+@Entity
 public class Invito {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
     private AnimatoreDellaFiliera sender;
+
+    @ManyToOne
     private Venditore receiver;
+
+    @ManyToOne
     private Evento event;
+
     private String description;
     private boolean accepted;
-    private static int nextIdInvite =0;
-    private int idInvite;
 
     public Invito(AnimatoreDellaFiliera sender, Venditore receiver, Evento event, String description) {
         this.sender = sender;
@@ -17,7 +27,10 @@ public class Invito {
         this.event = event;
         this.description = description;
         this.accepted = false;
-        this.idInvite=++nextIdInvite;
+    }
+
+    public Invito() {
+
     }
 
     public AnimatoreDellaFiliera getSender() {
@@ -60,8 +73,8 @@ public class Invito {
         this.accepted = accepted;
     }
 
-    public int getId() {
-        return idInvite;
+    public Long getId() {
+        return id;
     }
 
 }
