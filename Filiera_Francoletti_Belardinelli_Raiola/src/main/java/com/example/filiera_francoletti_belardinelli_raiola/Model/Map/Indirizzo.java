@@ -37,8 +37,7 @@ public class Indirizzo {
     @Override
     public boolean equals(Object o) {
         if(this == o) return true;
-        if(!(o instanceof Indirizzo)) return false;
-        Indirizzo that = (Indirizzo) o;
+        if(!(o instanceof Indirizzo that)) return false;
         return number == that.number && Objects.equals(this.address, that.address);
     }
     @Override

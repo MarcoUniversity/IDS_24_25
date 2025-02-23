@@ -65,7 +65,7 @@ public class Piattaforma {
 
     public Prodotto getProductByID(Long id) {
         for (Prodotto product : productInPlatform) {
-            if (product.getId() == id) {
+            if (product.getId().equals(id)) {
                 return product;
             }
         }
@@ -74,7 +74,7 @@ public class Piattaforma {
 
     public Evento getEventByID(Long id) {
         for (Evento event : eventInPlatform) {
-            if (event.getId() == id) {
+            if (event.getId().equals(id)) {
                 return event;
             }
         }
