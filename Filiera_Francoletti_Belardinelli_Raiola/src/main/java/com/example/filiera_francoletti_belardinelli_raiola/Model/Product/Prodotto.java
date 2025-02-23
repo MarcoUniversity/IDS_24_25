@@ -2,19 +2,33 @@ package com.example.filiera_francoletti_belardinelli_raiola.Model.Product;
 
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.Model.Sellers.Venditore;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_prodotto", discriminatorType = DiscriminatorType.STRING)
 public class Prodotto {
+
     private String name;
     private double price;
     private String description;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date expiration;
+
+    @Embedded
     private Indirizzo processingLocation;
-    private boolean state;
+
+    @ManyToOne
     private Venditore seller;
-    private int nextIdProduct =0;
-    private int idProduct;
+
+    private boolean state;
 
     public Prodotto(String name, double price, String description, Date expiration, Indirizzo processingLocation, Venditore seller) {
         this.name = name;
@@ -24,7 +38,10 @@ public class Prodotto {
         this.processingLocation = processingLocation;
         this.state = false;
         this.seller = seller;
-        this.idProduct=++nextIdProduct;
+    }
+
+    public Prodotto() {
+
     }
 
     public String getName() {
@@ -83,11 +100,11 @@ public class Prodotto {
         this.seller = seller;
     }
 
-    public int getId() {
-        return idProduct;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setId(int id) {
-        this.idProduct = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
