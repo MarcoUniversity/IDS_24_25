@@ -1,8 +1,11 @@
 package com.example.filiera_francoletti_belardinelli_raiola.Model.Social;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Social {
     private List<ContenutoSocial> listOfSocialAdvertisement;
     private static Social instanceSocial;
