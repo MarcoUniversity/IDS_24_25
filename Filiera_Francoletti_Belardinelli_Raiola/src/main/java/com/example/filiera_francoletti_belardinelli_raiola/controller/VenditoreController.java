@@ -41,4 +41,29 @@ public class VenditoreController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    // Aggiorna un venditore (modifica)
+    @PutMapping("/{id}")
+    public ResponseEntity<Venditore> updateVenditore(@PathVariable Long id, @RequestBody Venditore venditoreData) {
+        return venditoreRepository.findById(id)
+                .map(existing -> {
+                    existing.setName(venditoreData.getName());
+                    existing.setAddress(venditoreData.getAddress());
+                    // Se ci sono campi specifici della sottoclasse, occorre gestirli in modo appropriato
+                    Venditore updated = venditoreRepository.save(existing);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // Elimina un venditore
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteVenditore(@PathVariable Long id) {
+        if (venditoreRepository.existsById(id)) {
+            venditoreRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

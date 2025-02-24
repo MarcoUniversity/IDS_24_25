@@ -35,22 +35,24 @@ public class AcquirenteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Acquirente> updateAcquirente(@PathVariable Long id, @RequestBody Acquirente acquirenteData) {
-        Optional<Acquirente> opt = acquirenteRepository.findById(id);
-        if (!opt.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        Acquirente a = opt.get();
-        a.setName(acquirenteData.getName());
-        a.setEmail(acquirenteData.getEmail());
-        a.setPassword(acquirenteData.getPassword());
-        Acquirente updated = acquirenteRepository.save(a);
-        return ResponseEntity.ok(updated);
+        return acquirenteRepository.findById(id)
+                .map(existing -> {
+                    existing.setName(acquirenteData.getName());
+                    existing.setEmail(acquirenteData.getEmail());
+                    existing.setPassword(acquirenteData.getPassword());
+                    Acquirente updated = acquirenteRepository.save(existing);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAcquirente(@PathVariable Long id) {
-        acquirenteRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (acquirenteRepository.existsById(id)) {
+            acquirenteRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping
