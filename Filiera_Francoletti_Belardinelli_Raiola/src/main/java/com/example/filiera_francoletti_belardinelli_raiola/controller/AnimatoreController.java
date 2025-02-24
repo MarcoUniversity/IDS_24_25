@@ -67,4 +67,23 @@ public class AnimatoreController {
         }
         return ResponseEntity.ok(animatore.getEventsCreated());
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<AnimatoreDellaFiliera> updateAnimatore(@PathVariable Long id, @RequestBody AnimatoreDellaFiliera animatoreData) {
+        return animatoreRepository.findById(id)
+                .map(existing -> {
+                    existing.setName(animatoreData.getName());
+                    AnimatoreDellaFiliera updated = animatoreRepository.save(existing);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAnimatore(@PathVariable Long id) {
+        if (animatoreRepository.existsById(id)) {
+            animatoreRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
