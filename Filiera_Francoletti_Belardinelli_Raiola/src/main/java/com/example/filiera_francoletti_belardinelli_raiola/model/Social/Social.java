@@ -1,0 +1,37 @@
+package com.example.filiera_francoletti_belardinelli_raiola.model.Social;
+
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class Social {
+    private List<ContenutoSocial> listOfSocialAdvertisement;
+    private static Social instanceSocial;
+
+
+    private Social() {
+        //Costruttore privato per implementare il design pattern singleton
+        listOfSocialAdvertisement = new ArrayList<ContenutoSocial>();
+    }
+
+    public static synchronized Social getSocial() {
+        if (instanceSocial == null) {
+            instanceSocial = new Social();
+        }
+        return instanceSocial;
+    }
+    public List<ContenutoSocial> getListOfSocialAdvertisement() {
+        return listOfSocialAdvertisement;
+    }
+
+    public void setListOfSocialAdvertisement(List<ContenutoSocial> listOfSocialAdvertisement) {
+        this.listOfSocialAdvertisement = listOfSocialAdvertisement;
+    }
+
+    public void addSocialAdvertisement(ContenutoSocial social) {
+        this.listOfSocialAdvertisement.add(social);
+    }
+}
+
