@@ -1,14 +1,17 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
+import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Sellers.Venditore;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Social.ContenutoSocial;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Social.Social;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.ProdottoRepository;
+import com.example.filiera_francoletti_belardinelli_raiola.repository.VenditoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,19 +23,18 @@ public class HandlerVenditore {
         this.prodottoRepository = prodottoRepository;
     }
 
-    /* Crea un prodotto per il venditore utilizzando il metodo factory dell'entità
-    public Prodotto createProductForVenditore(Venditore venditore, String name, double price, String description, java.util.Date expiration) {
-        Prodotto prodotto = venditore.createProduct(name, price, description, expiration);
-        return prodottoRepository.save(prodotto);
-    }*/
-
-    // NUOVO METODO: crea un prodotto per il venditore
-    public Prodotto createProductForVenditore(Venditore venditore, String name, double price, String description, java.util.Date expiration) {
+    // Metodo aggiornato: include processingLocation come parametro
+    public Prodotto createProductForVenditore(Venditore venditore, String name, double price, String description, Date expiration, Indirizzo processingLocation) {
         if (venditore == null) {
             throw new RuntimeException("Venditore mancante!");
         }
-        // Usa il metodo factory definito nella classe Venditore (sottoclasse)
+        if (processingLocation == null) {
+            throw new RuntimeException("processingLocation is required!");
+        }
+        // Usa il metodo factory definito nella classe Venditore (o nelle sue sottoclassi)
         Prodotto prodotto = venditore.createProduct(name, price, description, expiration);
+        // Imposta il processingLocation ricevuto dal JSON
+        prodotto.setProcessingLocation(processingLocation);
         return prodottoRepository.save(prodotto);
     }
 
@@ -58,6 +60,7 @@ public class HandlerVenditore {
     public List<Prodotto> getAllProducts() {
         return prodottoRepository.findAll();
     }
+
 
    /* public void socialPromotion(String description, Prodotto product, Venditore seller) {
         if (product != null && seller != null && description != null) {

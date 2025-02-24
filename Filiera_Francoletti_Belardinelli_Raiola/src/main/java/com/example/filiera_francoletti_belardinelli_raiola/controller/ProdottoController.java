@@ -1,6 +1,7 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
 import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Sellers.Venditore;
 import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerVenditore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,10 @@ public class ProdottoController {
 
     @PostMapping
     public ResponseEntity<Prodotto> createProduct(@RequestBody Prodotto prodotto) {
-        // Verifica che l'oggetto "seller" sia valorizzato correttamente
+        // Verifica che l'oggetto "seller" e "processingLocation" siano valorizzati
         Venditore venditore = prodotto.getSeller();
-        if (venditore == null || venditore.getId() == null) {
+        Indirizzo processingLocation = prodotto.getProcessingLocation();
+        if (venditore == null || venditore.getId() == null || processingLocation == null) {
             return ResponseEntity.badRequest().build();
         }
         Prodotto created = venditoreService.createProductForVenditore(
@@ -33,7 +35,8 @@ public class ProdottoController {
                 prodotto.getName(),
                 prodotto.getPrice(),
                 prodotto.getDescription(),
-                prodotto.getExpiration()
+                prodotto.getExpiration(),
+                processingLocation
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
@@ -65,3 +68,4 @@ public class ProdottoController {
         return ResponseEntity.ok(prodotti);
     }
 }
+
