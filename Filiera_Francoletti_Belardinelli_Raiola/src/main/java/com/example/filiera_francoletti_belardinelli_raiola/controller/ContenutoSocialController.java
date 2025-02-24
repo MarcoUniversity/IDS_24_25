@@ -49,8 +49,11 @@ public class ContenutoSocialController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSocialContent(@PathVariable Long id) {
-        socialRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (socialRepository.existsById(id)) {
+            socialRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping
