@@ -45,7 +45,8 @@ public class Evento {
      * Animatore che ha creato l'evento.
      * Questo campo non viene serializzato per evitare loop di riferimento.
      */
-    @ManyToOne
+    @ManyToOne(optional = true)
+    //@JoinColumn(name = "creator_id", nullable = true)
     @JsonBackReference
     private AnimatoreDellaFiliera creator;
 

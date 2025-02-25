@@ -130,10 +130,19 @@ public class EventoController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable Long id) {
-        if (eventoRepository.existsById(id)) {
-            eventoRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        return eventoRepository.findById(id)
+                .<ResponseEntity<Void>>map(evento -> {
+                    // 1. Dissocia l'evento dall'animatore, se necessario
+                    AnimatoreDellaFiliera animatore = evento.getCreator();
+                    if (animatore != null) {
+                        animatore.getEventsCreated().remove(evento);
+                        animatoreRepository.save(animatore);
+                    }
+                    // 2. Elimina l'evento
+                    eventoRepository.delete(evento);
+                    // 3. Restituisce 204 No Content
+                    return ResponseEntity.noContent().build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
