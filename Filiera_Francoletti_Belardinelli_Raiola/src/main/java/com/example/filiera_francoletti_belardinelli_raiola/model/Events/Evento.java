@@ -1,12 +1,12 @@
 package com.example.filiera_francoletti_belardinelli_raiola.model.Events;
 
 import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
-import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-public class Evento implements Serializable {
+public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,11 @@ public class Evento implements Serializable {
     private Indirizzo place;
 
     @ManyToOne
+    @JsonBackReference  // non serializzare il riferimento al creatore
     private AnimatoreDellaFiliera creator;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
 
     public Evento() {}
 
@@ -32,7 +36,7 @@ public class Evento implements Serializable {
         this.creator = creator;
     }
 
-    // Getters and setters...
+    // Getters e Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getName() { return name; }
@@ -45,4 +49,6 @@ public class Evento implements Serializable {
     public void setPlace(Indirizzo place) { this.place = place; }
     public AnimatoreDellaFiliera getCreator() { return creator; }
     public void setCreator(AnimatoreDellaFiliera creator) { this.creator = creator; }
+    public Date getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 }
