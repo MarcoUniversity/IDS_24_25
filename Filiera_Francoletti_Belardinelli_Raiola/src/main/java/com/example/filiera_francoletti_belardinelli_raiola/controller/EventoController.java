@@ -33,33 +33,30 @@ public class EventoController {
       /**
      * Crea un nuovo evento e notifica i subscriber dell'animatore.
      */
-    @PostMapping
-    public ResponseEntity<Evento> createEvento(@RequestBody Evento evento) {
-        // 1. Verifica che l'evento abbia un 'creator' (animatore) associato
-        AnimatoreDellaFiliera animatore = evento.getCreator();
-        if (animatore == null || animatore.getId() == null) {
-            return ResponseEntity.badRequest().build();
-        }
+      @PostMapping
+      public ResponseEntity<Evento> createEvento(@RequestBody Evento evento) {
+          if (evento.getCreator() == null || evento.getCreator().getId() == null) {
+              return ResponseEntity.badRequest().build();
+          }
+          // Recupera l'animatore dal DB
+          AnimatoreDellaFiliera animatore = animatoreRepository.findById(evento.getCreator().getId())
+                  .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + evento.getCreator().getId()));
 
-        // 2. Recupera l'animatore dal DB per avere la lista aggiornata dei subscriber
-        AnimatoreDellaFiliera animatoreFromDb = animatoreRepository.findById(animatore.getId())
-                .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + animatore.getId()));
+          // Imposta l'animatore come creatore dell'evento
+          evento.setCreator(animatore);
 
-        // 3. Imposta l'animatore come creatore effettivo dell'evento
-        evento.setCreator(animatoreFromDb);
+          // Crea l'evento tramite il metodo dell'animatore che notifica automaticamente i subscriber
+          animatore.createEvent(evento.getName(), evento.getDescription(), evento.getMaxPeople(), evento.getPlace(), notificaService);
 
-        // 4. Salva l'evento
-        Evento savedEvento = eventoRepository.save(evento);
+          // Salva l'evento (assumendo che venga aggiunto all'interno dell'animatore)
+          Evento savedEvento = eventoRepository.save(evento);
 
-        // 5. Aggiunge l'evento alla lista dell'animatore e salva l'animatore
-        animatoreFromDb.getEventsCreated().add(savedEvento);
-        animatoreRepository.save(animatoreFromDb);
+          // Salva l'animatore per aggiornare la lista degli eventi
+          animatore.getEventsCreated().add(savedEvento);
+          animatoreRepository.save(animatore);
 
-        // 6. Notifica i subscriber
-        notifySubscribers(animatoreFromDb, savedEvento);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
-    }
+          return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
+      }
 
     /**
      * Notifica i subscriber dell'animatore riguardo l'evento appena creato.

@@ -2,6 +2,7 @@ package com.example.filiera_francoletti_belardinelli_raiola.model.Events;
 
 import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Users.Subscriber;
+import com.example.filiera_francoletti_belardinelli_raiola.model.Users.UtenteGenerico;
 import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerAnimatore;
 import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerNotifica;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,6 +32,7 @@ public class AnimatoreDellaFiliera {
         this.name = name;
     }
 
+    // Il metodo createEvent che notifica i subscriber
     public void createEvent(String eventName, String description, int maxPeople, Indirizzo place, HandlerNotifica notificaService) {
         Evento event = new Evento(eventName, description, maxPeople, place, this);
         this.eventsCreated.add(event);
@@ -39,8 +41,7 @@ public class AnimatoreDellaFiliera {
 
     private void notifySubscribers(Evento event, HandlerNotifica notificaService) {
         for (Subscriber s : subscribers) {
-            // Supponendo che Subscriber sia implementato da UtenteGenerico
-            Long subscriberId = ((com.example.filiera_francoletti_belardinelli_raiola.model.Users.UtenteGenerico) s).getId();
+            Long subscriberId = ((UtenteGenerico) s).getId();
             String message = "Nuovo evento: " + event.getName() + " creato dall'animatore " + this.name;
             notificaService.creaNotifica(message, subscriberId);
             s.update();
