@@ -32,11 +32,11 @@ public class AnimatoreController {
     /**
      * Costruttore per l'iniezione delle dipendenze necessarie.
      *
-     * @param utenteRepository repository degli utenti generici
-     * @param handlerAnimatore servizio per la gestione degli animatori
+     * @param utenteRepository    repository degli utenti generici
+     * @param handlerAnimatore    servizio per la gestione degli animatori
      * @param animatoreRepository repository degli animatori
-     * @param eventoRepository repository degli eventi
-     * @param notificaService servizio per la gestione delle notifiche
+     * @param eventoRepository    repository degli eventi
+     * @param notificaService     servizio per la gestione delle notifiche
      */
     @Autowired
     public AnimatoreController(UtenteRepository utenteRepository, HandlerAnimatore handlerAnimatore, AnimatoreRepository animatoreRepository, EventoRepository eventoRepository, HandlerNotifica notificaService) {
@@ -63,7 +63,7 @@ public class AnimatoreController {
      * Iscrive un utente alle notifiche di un animatore.
      *
      * @param animatoreId ID dell'animatore
-     * @param utenteId ID dell'utente
+     * @param utenteId    ID dell'utente
      * @return ResponseEntity con un messaggio di conferma
      */
     @PostMapping("/{animatoreId}/subscribe/{utenteId}")
@@ -80,7 +80,7 @@ public class AnimatoreController {
      * Disiscrive un utente dalle notifiche di un animatore.
      *
      * @param animatoreId ID dell'animatore
-     * @param utenteId ID dell'utente
+     * @param utenteId    ID dell'utente
      * @return ResponseEntity con un messaggio di conferma
      */
     @PostMapping("/{animatoreId}/unsubscribe/{utenteId}")
@@ -124,7 +124,7 @@ public class AnimatoreController {
      * Crea un evento per un animatore e notifica i subscriber.
      *
      * @param animatoreId ID dell'animatore
-     * @param evento l'evento da creare
+     * @param evento      l'evento da creare
      * @return ResponseEntity contenente l'evento creato
      */
     @PostMapping("/{animatoreId}/eventi")
@@ -139,7 +139,13 @@ public class AnimatoreController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
     }
 
-    // PUT: Aggiorna un animatore
+    /**
+     * Aggiorna un animatore esistente.
+     *
+     * @param id            l'ID dell'animatore da aggiornare
+     * @param animatoreData i dati aggiornati dell'animatore
+     * @return una {@link ResponseEntity} contenente l'animatore aggiornato oppure uno stato HTTP 404 se non trovato
+     */
     @PutMapping("/{id}")
     public ResponseEntity<AnimatoreDellaFiliera> updateAnimatore(@PathVariable Long id, @RequestBody AnimatoreDellaFiliera animatoreData) {
         return animatoreRepository.findById(id)
@@ -152,7 +158,13 @@ public class AnimatoreController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETE: Elimina un animatore per ID
+    /**
+     * Elimina un animatore per ID.
+     *
+     * @param id l'ID dell'animatore da eliminare
+     * @return una {@link ResponseEntity} senza contenuto (HTTP 204 No Content) se eliminato con successo,
+     * oppure uno stato HTTP 404 se l'animatore non esiste
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAnimatore(@PathVariable Long id) {
         if (animatoreRepository.existsById(id)) {
@@ -161,5 +173,4 @@ public class AnimatoreController {
         }
         return ResponseEntity.notFound().build();
     }
-
 }

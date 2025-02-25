@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller REST per la gestione degli eventi.
+ * <p>
+ * Fornisce endpoint per creare, recuperare, aggiornare ed eliminare eventi.
+ * In particolare, consente di creare un evento associato ad un animatore e notifica automaticamente i subscriber.
+ * </p>
+ */
 @RestController
 @RequestMapping("/api/v1/eventi")
 public class EventoController {
@@ -20,6 +27,13 @@ public class EventoController {
     private final AnimatoreRepository animatoreRepository;
     private final HandlerNotifica notificaService;
 
+    /**
+     * Costruttore per l'iniezione delle dipendenze necessarie.
+     *
+     * @param eventoRepository     repository per la gestione degli eventi
+     * @param animatoreRepository  repository per la gestione degli animatori
+     * @param notificaService      servizio per la gestione delle notifiche
+     */
     @Autowired
     public EventoController(EventoRepository eventoRepository,
                             AnimatoreRepository animatoreRepository,
@@ -31,8 +45,13 @@ public class EventoController {
 
     /**
      * Crea un nuovo evento e, tramite il metodo dell'animatore, notifica automaticamente i subscriber.
+     * <p>
      * Il JSON di input deve contenere almeno i campi "name", "description", "maxPeople", "place"
      * e un oggetto "creator" con l'id dell'animatore.
+     * </p>
+     *
+     * @param evento l'oggetto {@link Evento} da creare
+     * @return una {@link ResponseEntity} contenente l'evento creato con stato HTTP 201 (Created)
      */
     @PostMapping
     public ResponseEntity<Evento> createEvento(@RequestBody Evento evento) {
@@ -40,37 +59,35 @@ public class EventoController {
         if (evento.getCreator() == null || evento.getCreator().getId() == null) {
             return ResponseEntity.badRequest().build();
         }
-        // Recupera l'animatore dal database
-        AnimatoreDellaFiliera animatore = animatoreRepository.findById(evento.getCreator().getId())
+        AnimatoreDellaFiliera animatore = this.animatoreRepository.findById(evento.getCreator().getId())
                 .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + evento.getCreator().getId()));
-
-        // Imposta l'animatore come creatore effettivo dell'evento
         evento.setCreator(animatore);
-
-        // Usa il metodo createEvent dell'animatore che crea l'evento e notifica i subscriber
-        animatore.createEvent(evento.getName(), evento.getDescription(), evento.getMaxPeople(), evento.getPlace(), notificaService);
-
-        // Salva l'animatore per persistire la modifica (la lista degli eventi)
-        animatoreRepository.save(animatore);
-
-        // Ottieni l'ultimo evento creato dall'animatore (si assume venga aggiunto alla fine della lista)
+        animatore.createEvent(evento.getName(), evento.getDescription(), evento.getMaxPeople(), evento.getPlace(), this.notificaService);
+        this.animatoreRepository.save(animatore);
         List<Evento> eventi = animatore.getEventsCreated();
         Evento savedEvento = eventi.get(eventi.size() - 1);
-
-        // Puoi salvare anche l'evento nel repository, se necessario
-        eventoRepository.save(savedEvento);
+        this.eventoRepository.save(savedEvento);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
     }
 
-    // Altri endpoint GET, PUT, DELETE per gli eventi…
-
+    /**
+     * Recupera la lista di tutti gli eventi.
+     *
+     * @return una {@link ResponseEntity} contenente la lista di tutti gli eventi
+     */
     @GetMapping
     public ResponseEntity<List<Evento>> getAllEventi() {
         List<Evento> eventi = eventoRepository.findAll();
         return ResponseEntity.ok(eventi);
     }
 
+    /**
+     * Recupera un evento in base al suo ID.
+     *
+     * @param id l'ID dell'evento da recuperare
+     * @return una {@link ResponseEntity} contenente l'evento trovato oppure lo stato HTTP 404 (Not Found) se non esiste
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Evento> getEventoById(@PathVariable Long id) {
         return eventoRepository.findById(id)
@@ -78,6 +95,17 @@ public class EventoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Aggiorna i dati di un evento esistente.
+     * <p>
+     * Solo i campi name, description, maxPeople e place vengono aggiornati;
+     * il campo creator non viene modificato.
+     * </p>
+     *
+     * @param id          l'ID dell'evento da aggiornare
+     * @param eventoData  i nuovi dati dell'evento
+     * @return una {@link ResponseEntity} contenente l'evento aggiornato oppure lo stato HTTP 404 se non trovato
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Evento> updateEvento(@PathVariable Long id, @RequestBody Evento eventoData) {
         return eventoRepository.findById(id)
@@ -93,6 +121,13 @@ public class EventoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Elimina un evento in base al suo ID.
+     *
+     * @param id l'ID dell'evento da eliminare
+     * @return una {@link ResponseEntity} senza contenuto se eliminato con successo,
+     *         oppure lo stato HTTP 404  se l'evento non esiste
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable Long id) {
         if (eventoRepository.existsById(id)) {

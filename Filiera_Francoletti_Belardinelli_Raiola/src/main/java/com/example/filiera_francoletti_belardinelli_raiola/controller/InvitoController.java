@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Controller per la gestione degli inviti agli eventi.
- * Fornisce operazioni CRUD per gli inviti.
+ * Controller REST per la gestione degli inviti agli eventi.
+ * <p>
+ * Fornisce operazioni CRUD per gli inviti, permettendo la creazione,
+ * il recupero, l'aggiornamento e la cancellazione degli inviti,
+ * oltre a un endpoint specifico per accettare un invito.
+ * </p>
  */
 @RestController
 @RequestMapping("/api/v1/inviti")
@@ -22,7 +26,7 @@ public class InvitoController {
     /**
      * Costruttore per iniettare il repository degli inviti.
      *
-     * @param invitoRepository il repository degli inviti
+     * @param invitoRepository il repository per la gestione degli inviti
      */
     @Autowired
     public InvitoController(InvitoRepository invitoRepository) {
@@ -32,8 +36,8 @@ public class InvitoController {
     /**
      * Crea un nuovo invito.
      *
-     * @param invito l'invito da creare
-     * @return ResponseEntity contenente l'invito creato con stato HTTP 201 (Created)
+     * @param invito l'oggetto {@link Invito} da creare
+     * @return una {@link ResponseEntity} contenente l'invito creato e lo stato HTTP 201 (Created)
      */
     @PostMapping
     public ResponseEntity<Invito> createInvito(@RequestBody Invito invito) {
@@ -44,8 +48,9 @@ public class InvitoController {
     /**
      * Recupera un invito dato il suo ID.
      *
-     * @param id l'ID dell'invito
-     * @return ResponseEntity contenente l'invito se trovato, altrimenti HTTP 404 (Not Found)
+     * @param id l'ID dell'invito da recuperare
+     * @return una {@link ResponseEntity} contenente l'invito se trovato,
+     *         altrimenti stato HTTP 404 (Not Found)
      */
     @GetMapping("/{id}")
     public ResponseEntity<Invito> getInvitoById(@PathVariable Long id) {
@@ -57,7 +62,8 @@ public class InvitoController {
     /**
      * Recupera tutti gli inviti esistenti.
      *
-     * @return ResponseEntity contenente la lista degli inviti con stato HTTP 200 (OK)
+     * @return una {@link ResponseEntity} contenente la lista degli inviti
+     *         e stato HTTP 200 (OK)
      */
     @GetMapping
     public ResponseEntity<List<Invito>> getAllInviti() {
@@ -67,10 +73,15 @@ public class InvitoController {
 
     /**
      * Aggiorna un invito esistente.
+     * <p>
+     * I campi aggiornabili includono il mittente, il destinatario, l'evento,
+     * la descrizione e lo stato di accettazione.
+     * </p>
      *
      * @param id         l'ID dell'invito da aggiornare
-     * @param invitoData i nuovi dati dell'invito
-     * @return ResponseEntity contenente l'invito aggiornato se esiste, altrimenti HTTP 404 (Not Found)
+     * @param invitoData i nuovi dati da impostare sull'invito esistente
+     * @return una {@link ResponseEntity} contenente l'invito aggiornato,
+     *         oppure stato HTTP 404 (Not Found) se l'invito non esiste
      */
     @PutMapping("/{id}")
     public ResponseEntity<Invito> updateInvito(@PathVariable Long id, @RequestBody Invito invitoData) {
@@ -90,15 +101,25 @@ public class InvitoController {
      * Elimina un invito dato il suo ID.
      *
      * @param id l'ID dell'invito da eliminare
-     * @return ResponseEntity con stato HTTP 204 (No Content) se eliminato con successo
+     * @return una {@link ResponseEntity} con stato HTTP 204 (No Content) se l'eliminazione ha successo,
+     *         altrimenti stato HTTP 404 (Not Found)
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInvito(@PathVariable Long id) {
-        invitoRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (invitoRepository.existsById(id)) {
+            invitoRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    // Nuovo endpoint: Accetta un invito (imposta accepted a true)
+    /**
+     * Accetta un invito impostando il campo accepted a true.
+     *
+     * @param id l'ID dell'invito da accettare
+     * @return una {@link ResponseEntity} contenente l'invito aggiornato
+     *         oppure stato HTTP 404 (Not Found) se l'invito non esiste
+     */
     @PutMapping("/{id}/accept")
     public ResponseEntity<Invito> acceptInvito(@PathVariable Long id) {
         return invitoRepository.findById(id)
