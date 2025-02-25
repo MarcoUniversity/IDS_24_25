@@ -2,6 +2,8 @@ package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
 import com.example.filiera_francoletti_belardinelli_raiola.model.Social.ContenutoSocial;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.SocialRepository;
+import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerSocial;
+import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerVenditore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,55 +16,56 @@ import java.util.Optional;
 @RequestMapping("/api/v1/social")
 public class ContenutoSocialController {
 
-    private final SocialRepository socialRepository;
+
+    private final HandlerSocial socialService;
 
     @Autowired
-    public ContenutoSocialController(SocialRepository socialRepository) {
-        this.socialRepository = socialRepository;
+    public ContenutoSocialController(HandlerSocial socialService) {
+        this.socialService = socialService;
     }
-
-    // POST: Crea un nuovo ContenutoSocial
+    // POST: Crea un nuovo contenuto social
     @PostMapping
-    public ResponseEntity<ContenutoSocial> createSocialContent(@RequestBody ContenutoSocial socialContent) {
-        // Assicurati che il JSON in ingresso fornisca i campi necessari (es. product, seller, description)
-        ContenutoSocial saved = socialRepository.save(socialContent);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public ResponseEntity<?> addSocialContent(@RequestBody ContenutoSocial socialContent) {
+        try {
+            ContenutoSocial created = socialService.addSocialContent(socialContent);
+            return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
     }
 
-    // GET: Recupera tutti i ContenutiSocial
+    // GET: Recupera tutti i contenuti social
     @GetMapping
     public ResponseEntity<List<ContenutoSocial>> getAllSocialContent() {
-        List<ContenutoSocial> list = socialRepository.findAll();
+        List<ContenutoSocial> list = socialService.getAllSocialContent();
         return ResponseEntity.ok(list);
     }
 
-    // GET: Recupera un ContenutoSocial per ID
+    // GET: Recupera un contenuto social per ID
     @GetMapping("/{id}")
     public ResponseEntity<ContenutoSocial> getSocialContentById(@PathVariable Long id) {
-        Optional<ContenutoSocial> opt = socialRepository.findById(id);
-        return opt.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // PUT: Aggiorna un ContenutoSocial esistente
-    @PutMapping("/{id}")
-    public ResponseEntity<ContenutoSocial> updateSocialContent(@PathVariable Long id, @RequestBody ContenutoSocial socialContentData) {
-        Optional<ContenutoSocial> opt = socialRepository.findById(id);
-        if (!opt.isPresent()) {
+        ContenutoSocial cs = socialService.getSocialContentById(id);
+        if (cs == null) {
             return ResponseEntity.notFound().build();
         }
-        ContenutoSocial cs = opt.get();
-        cs.setDescription(socialContentData.getDescription());
-        cs.setProduct(socialContentData.getProduct());
-        cs.setSeller(socialContentData.getSeller());
-        ContenutoSocial updated = socialRepository.save(cs);
-        return ResponseEntity.ok(updated);
+        return ResponseEntity.ok(cs);
     }
 
-    // DELETE: Elimina un ContenutoSocial per ID
+    // PUT: Aggiorna un contenuto social
+    @PutMapping("/{id}")
+    public ResponseEntity<ContenutoSocial> updateSocialContent(@PathVariable Long id, @RequestBody ContenutoSocial socialContentData) {
+        try {
+            ContenutoSocial updated = socialService.updateSocialContent(id, socialContentData);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // DELETE: Elimina un contenuto social
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSocialContent(@PathVariable Long id) {
-        socialRepository.deleteById(id);
+        socialService.deleteSocialContent(id);
         return ResponseEntity.noContent().build();
     }
 }

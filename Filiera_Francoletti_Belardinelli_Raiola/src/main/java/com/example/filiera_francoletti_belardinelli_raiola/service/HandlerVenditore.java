@@ -63,12 +63,27 @@ public class HandlerVenditore {
     }
 
 
-   /* public void socialPromotion(String description, Prodotto product, Venditore seller) {
-        if (product != null && seller != null && description != null) {
-            // Se Social è gestito come bean, lo iniettiamo; altrimenti usiamo il metodo statico.
-            Social social = Social.getSocial();
-            social.addSocialAdvertisement(new ContenutoSocial(product, seller, description));
+    /**
+     * Aggiunge un contenuto social solo se il prodotto associato è verificato.
+     * Per assicurarsi che il prodotto sia aggiornato, lo recupera dal database tramite il suo ID.
+     */
+    public ContenutoSocial addSocialContent(ContenutoSocial socialContent) {
+        if (socialContent.getProduct() == null || socialContent.getProduct().getId() == null) {
+            throw new IllegalArgumentException("Il prodotto deve essere fornito con un ID valido");
         }
-    }*/
+        // Recupera il prodotto persistente dal database
+        Prodotto productFromDb = prodottoRepository.findById(socialContent.getProduct().getId())
+                .orElseThrow(() -> new RuntimeException("Prodotto non trovato con id: " + socialContent.getProduct().getId()));
+
+        // Controlla se il prodotto è verificato
+        if (!productFromDb.isState()) {
+            throw new IllegalStateException("Il prodotto non è verificato: impossibile aggiungere contenuto social");
+        }
+        // Usa il prodotto aggiornato dal database per associare il contenuto social
+        socialContent.setProduct(productFromDb);
+        Social.getSocial().addSocialAdvertisement(socialContent);
+        return socialContent;
+    }
+
 }
 
