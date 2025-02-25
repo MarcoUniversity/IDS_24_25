@@ -59,6 +59,8 @@ public class AnimatoreController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
     }
 
+
+
     @GetMapping("/{id}/eventi")
     public ResponseEntity<List<Evento>> getEventiByAnimatore(@PathVariable Long id) {
         AnimatoreDellaFiliera animatore = animatoreRepository.findById(id).orElse(null);
