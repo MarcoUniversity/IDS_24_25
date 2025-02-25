@@ -35,6 +35,7 @@ public class HandlerVenditore {
         Prodotto prodotto = venditore.createProduct(name, price, description, expiration);
         // Imposta il processingLocation ricevuto dal JSON
         prodotto.setProcessingLocation(processingLocation);
+
         return prodottoRepository.save(prodotto);
     }
 

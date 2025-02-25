@@ -1,11 +1,12 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Payment.Carrello;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Payment.Pagamento;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Payment.Ricevuta;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Users.Acquirente;
+import com.example.filiera_francoletti_belardinelli_raiola.repository.ProdottoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,31 +14,41 @@ import java.util.List;
 
 @Service
 public class HandlerAcquirente {
+
     private Carrello shoppingCart;
     private List<Pagamento> payments;
+    private final ProdottoRepository prodottoRepository;
 
-    public HandlerAcquirente() {
+    @Autowired
+    public HandlerAcquirente(ProdottoRepository prodottoRepository) {
+        this.prodottoRepository = prodottoRepository;
         this.shoppingCart = new Carrello();
         this.payments = new ArrayList<>();
     }
 
-    public void addProduct(Long id) {
-        Prodotto product = Piattaforma.getPlatform().getProductByID(id);
-        if (product == null) {
-            throw new RuntimeException("Prodotto non trovato con id: " + id);
-        }
+    // Aggiunge un prodotto al carrello recuperandolo dal repository
+    public void addProduct(Long productId) {
+        Prodotto product = prodottoRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Prodotto non trovato con id: " + productId));
         this.shoppingCart.addProduct(product);
     }
 
-    public Pagamento pay(Acquirente payer) {
+    // Rimuove un prodotto dal carrello per id
+    public void removeProduct(Long productId) {
+        this.shoppingCart.removeProduct(productId);
+    }
+
+    // Esegue il pagamento, genera una ricevuta, salva il pagamento e svuota il carrello
+    public Pagamento pay(Acquirente acquirente) {
         String invoiceContent = generateInvoice(this.shoppingCart);
         Ricevuta invoice = new Ricevuta(invoiceContent);
-        Pagamento pagamento = new Pagamento(payer, this.shoppingCart, invoice);
+        Pagamento pagamento = new Pagamento(acquirente, this.shoppingCart, invoice);
         this.payments.add(pagamento);
         this.shoppingCart.clearProducts();
         return pagamento;
     }
 
+    // Metodo per generare il contenuto della ricevuta basato sui prodotti nel carrello
     private String generateInvoice(Carrello cart) {
         double total = 0;
         StringBuilder sb = new StringBuilder("Ricevuta:\n");
@@ -50,24 +61,11 @@ public class HandlerAcquirente {
         return sb.toString();
     }
 
-    public void removeProduct(Long id) {
-        this.shoppingCart.removeProduct(id);
-    }
-
     public Carrello getShoppingCart() {
         return shoppingCart;
     }
 
-    public void setShoppingCart(Carrello shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
-
     public List<Pagamento> getPayments() {
-        return this.payments;
-    }
-
-    public void setPayments(List<Pagamento> payments) {
-        this.payments = payments;
+        return payments;
     }
 }
-
