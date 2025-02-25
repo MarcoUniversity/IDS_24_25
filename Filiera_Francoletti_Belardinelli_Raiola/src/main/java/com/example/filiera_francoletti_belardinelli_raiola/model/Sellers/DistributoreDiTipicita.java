@@ -8,24 +8,44 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import java.util.Date;
 
+/**
+ * Classe che rappresenta un distributore di tipicità, ovvero un venditore specializzato nella distribuzione di prodotti tipici.
+ * Estende la classe {@link Venditore} e implementa l'interfaccia {@link IBuilder} per la creazione di bundle di prodotti.
+ */
 @Entity
 @DiscriminatorValue("DISTRIBUTORE")
 public class DistributoreDiTipicita extends Venditore implements IBuilder {
 
-    // Questo campo viene usato per costruire un bundle temporaneo
+    /**
+     * Bundle temporaneo in costruzione.
+     */
     @Transient
     private ProdottoDistributore currentBundle = null;
 
+    /**
+     * Costruttore di default richiesto da JPA.
+     */
     public DistributoreDiTipicita() {
         super();
     }
 
+    /**
+     * Costruttore che inizializza un distributore con il nome e l'indirizzo specificati.
+     *
+     * @param name Nome del distributore.
+     * @param address Indirizzo del distributore.
+     */
     public DistributoreDiTipicita(String name, Indirizzo address) {
         super(name, address);
     }
 
     /**
      * Inizia la costruzione di un bundle di prodotti.
+     *
+     * @param bundleName Nome del bundle.
+     * @param price Prezzo del bundle.
+     * @param description Descrizione del bundle.
+     * @param expiration Data di scadenza del bundle.
      */
     public void startBundle(String bundleName, double price, String description, Date expiration) {
         this.currentBundle = new ProdottoDistributore(bundleName, price, description, expiration, getAddress(), this, null);
@@ -33,6 +53,8 @@ public class DistributoreDiTipicita extends Venditore implements IBuilder {
 
     /**
      * Aggiunge un sottoprodotto al bundle corrente.
+     *
+     * @param subProduct Prodotto da aggiungere al bundle.
      */
     public void addSubProduct(Prodotto subProduct) {
         if (this.currentBundle != null && subProduct != null) {
@@ -44,6 +66,8 @@ public class DistributoreDiTipicita extends Venditore implements IBuilder {
 
     /**
      * Conclude la costruzione del bundle, lo restituisce e resetta il bundle corrente.
+     *
+     * @return Il bundle di prodotti completato.
      */
     public Prodotto finishBundle() {
         if (this.currentBundle == null) {
@@ -51,15 +75,18 @@ public class DistributoreDiTipicita extends Venditore implements IBuilder {
             return null;
         }
         Prodotto finishedBundle = this.currentBundle;
-        // Reset del bundle corrente
         this.currentBundle = null;
-        // Qui puoi eventualmente invocare un metodo di salvataggio, ad esempio:
-        // getHandlerProduct().loadProduct(finishedBundle);
         return finishedBundle;
     }
 
     /**
      * Metodo factory per creare un prodotto generico per il distributore.
+     *
+     * @param name Nome del prodotto.
+     * @param price Prezzo del prodotto.
+     * @param description Descrizione del prodotto.
+     * @param expiration Data di scadenza del prodotto.
+     * @return Un'istanza di {@link ProdottoDistributore} con i dettagli specificati.
      */
     @Override
     public Prodotto createProduct(String name, double price, String description, Date expiration) {

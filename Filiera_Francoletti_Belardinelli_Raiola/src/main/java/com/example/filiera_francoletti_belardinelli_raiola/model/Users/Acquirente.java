@@ -2,18 +2,21 @@ package com.example.filiera_francoletti_belardinelli_raiola.model.Users;
 
 import jakarta.persistence.Entity;
 
+/**
+ * Rappresenta un acquirente nel sistema.
+ * <p>
+ * Questa classe estende {@link UtenteGenerico} per ereditare le proprietà comuni a tutti gli utenti.
+ * È annotata con {@code @Entity} per essere gestita dal framework JPA.
+ * </p>
+ */
 @Entity
 public class Acquirente extends UtenteGenerico {
-
-    // Non serve definire nuovamente l'id se già presente in UtenteGenerico
-
+    /**
+     * Costruttore di default.
+     * Necessario per il corretto funzionamento di JPA.
+     */
     public Acquirente() {
         super();
     }
 
-    public Acquirente(String name, String email, String password) {
-        super(name, email, password);
-    }
-
-    // Altri eventuali campi specifici di Acquirente
 }
