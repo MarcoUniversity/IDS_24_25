@@ -82,9 +82,12 @@ public class ProdottoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        venditoreService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteProdotto(@PathVariable Long id) {
+        if (prodottoRepository.existsById(id)) {
+            prodottoRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     /* GET: Recupera i prodotti di un venditore (solo quelli verificati)

@@ -1,9 +1,7 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
-
 import com.example.filiera_francoletti_belardinelli_raiola.model.Events.AnimatoreDellaFiliera;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Evento;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.UtenteGenerico;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.AnimatoreRepository;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.EventoRepository;
 import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerNotifica;
@@ -30,49 +28,42 @@ public class EventoController {
         this.animatoreRepository = animatoreRepository;
         this.notificaService = notificaService;
     }
-      /**
-     * Crea un nuovo evento e notifica i subscriber dell'animatore.
-     */
-      @PostMapping
-      public ResponseEntity<Evento> createEvento(@RequestBody Evento evento) {
-          if (evento.getCreator() == null || evento.getCreator().getId() == null) {
-              return ResponseEntity.badRequest().build();
-          }
-          // Recupera l'animatore dal DB
-          AnimatoreDellaFiliera animatore = animatoreRepository.findById(evento.getCreator().getId())
-                  .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + evento.getCreator().getId()));
-
-          // Imposta l'animatore come creatore dell'evento
-          evento.setCreator(animatore);
-
-          // Crea l'evento tramite il metodo dell'animatore che notifica automaticamente i subscriber
-          animatore.createEvent(evento.getName(), evento.getDescription(), evento.getMaxPeople(), evento.getPlace(), notificaService);
-
-          // Salva l'evento (assumendo che venga aggiunto all'interno dell'animatore)
-          Evento savedEvento = eventoRepository.save(evento);
-
-          // Salva l'animatore per aggiornare la lista degli eventi
-          animatore.getEventsCreated().add(savedEvento);
-          animatoreRepository.save(animatore);
-
-          return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
-      }
 
     /**
-     * Notifica i subscriber dell'animatore riguardo l'evento appena creato.
+     * Crea un nuovo evento e, tramite il metodo dell'animatore, notifica automaticamente i subscriber.
+     * Il JSON di input deve contenere almeno i campi "name", "description", "maxPeople", "place"
+     * e un oggetto "creator" con l'id dell'animatore.
      */
-    private void notifySubscribers(AnimatoreDellaFiliera animatore, Evento event) {
-        // Per ogni subscriber, crea una notifica persistente
-        animatore.getSubscribers().forEach(subscriber -> {
-            Long subscriberId = ((UtenteGenerico) subscriber).getId();  // supponendo che Subscriber sia UtenteGenerico
-            String message = "Nuovo evento: " + event.getName()
-                    + " creato dall'animatore " + animatore.getName();
-            notificaService.creaNotifica(message, subscriberId);
+    @PostMapping
+    public ResponseEntity<Evento> createEvento(@RequestBody Evento evento) {
+        // Verifica che l'evento contenga un creatore (animatore) valido
+        if (evento.getCreator() == null || evento.getCreator().getId() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        // Recupera l'animatore dal database
+        AnimatoreDellaFiliera animatore = animatoreRepository.findById(evento.getCreator().getId())
+                .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + evento.getCreator().getId()));
 
-            // Facoltativo: notifica in tempo reale (pattern Observer in memoria)
-            subscriber.update();
-        });
+        // Imposta l'animatore come creatore effettivo dell'evento
+        evento.setCreator(animatore);
+
+        // Usa il metodo createEvent dell'animatore che crea l'evento e notifica i subscriber
+        animatore.createEvent(evento.getName(), evento.getDescription(), evento.getMaxPeople(), evento.getPlace(), notificaService);
+
+        // Salva l'animatore per persistire la modifica (la lista degli eventi)
+        animatoreRepository.save(animatore);
+
+        // Ottieni l'ultimo evento creato dall'animatore (si assume venga aggiunto alla fine della lista)
+        List<Evento> eventi = animatore.getEventsCreated();
+        Evento savedEvento = eventi.get(eventi.size() - 1);
+
+        // Puoi salvare anche l'evento nel repository, se necessario
+        eventoRepository.save(savedEvento);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
     }
+
+    // Altri endpoint GET, PUT, DELETE per gli eventi…
 
     @GetMapping
     public ResponseEntity<List<Evento>> getAllEventi() {
@@ -95,7 +86,7 @@ public class EventoController {
                     existing.setDescription(eventoData.getDescription());
                     existing.setMaxPeople(eventoData.getMaxPeople());
                     existing.setPlace(eventoData.getPlace());
-                    // Il campo creator in genere non va modificato
+                    // Il campo creator non viene modificato
                     Evento updated = eventoRepository.save(existing);
                     return ResponseEntity.ok(updated);
                 })

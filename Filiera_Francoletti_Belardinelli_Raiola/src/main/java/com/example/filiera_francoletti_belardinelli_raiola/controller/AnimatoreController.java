@@ -138,4 +138,28 @@ public class AnimatoreController {
         this.animatoreRepository.save(animatore);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
     }
+
+    // PUT: Aggiorna un animatore
+    @PutMapping("/{id}")
+    public ResponseEntity<AnimatoreDellaFiliera> updateAnimatore(@PathVariable Long id, @RequestBody AnimatoreDellaFiliera animatoreData) {
+        return animatoreRepository.findById(id)
+                .map(existing -> {
+                    existing.setName(animatoreData.getName());
+                    // Se ci sono altri campi da aggiornare, gestiscili qui
+                    AnimatoreDellaFiliera updated = animatoreRepository.save(existing);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // DELETE: Elimina un animatore per ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAnimatore(@PathVariable Long id) {
+        if (animatoreRepository.existsById(id)) {
+            animatoreRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }

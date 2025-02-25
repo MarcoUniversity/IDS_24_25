@@ -56,14 +56,12 @@ public class VenditoreController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Elimina un venditore
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVenditore(@PathVariable Long id) {
         if (venditoreRepository.existsById(id)) {
             venditoreRepository.deleteById(id);
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 }

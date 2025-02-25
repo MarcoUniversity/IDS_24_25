@@ -64,5 +64,17 @@ public class InvitoController {
         invitoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    // Nuovo endpoint: Accetta un invito (imposta accepted a true)
+    @PutMapping("/{id}/accept")
+    public ResponseEntity<Invito> acceptInvito(@PathVariable Long id) {
+        return invitoRepository.findById(id)
+                .map(invito -> {
+                    invito.setAccepted(true);
+                    Invito updated = invitoRepository.save(invito);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
 
