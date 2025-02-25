@@ -1,8 +1,8 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Sellers;
+package com.example.filiera_francoletti_belardinelli_raiola.model.sellers;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.ProdottoProduttore;
+import com.example.filiera_francoletti_belardinelli_raiola.model.map.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.ProdottoProduttore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 

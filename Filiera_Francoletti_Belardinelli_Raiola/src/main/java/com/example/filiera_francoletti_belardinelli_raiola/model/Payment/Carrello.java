@@ -1,6 +1,6 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Payment;
+package com.example.filiera_francoletti_belardinelli_raiola.model.payment;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;

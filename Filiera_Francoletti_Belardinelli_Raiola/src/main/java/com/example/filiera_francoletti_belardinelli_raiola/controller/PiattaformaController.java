@@ -1,8 +1,8 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Administration.Piattaforma;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Evento;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.administration.Piattaforma;
+import com.example.filiera_francoletti_belardinelli_raiola.model.events.Evento;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

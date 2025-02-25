@@ -1,8 +1,8 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.AnimatoreDellaFiliera;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Evento;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.UtenteGenerico;
+import com.example.filiera_francoletti_belardinelli_raiola.model.events.AnimatoreDellaFiliera;
+import com.example.filiera_francoletti_belardinelli_raiola.model.events.Evento;
+import com.example.filiera_francoletti_belardinelli_raiola.model.users.UtenteGenerico;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.AnimatoreRepository;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.EventoRepository;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.UtenteRepository;

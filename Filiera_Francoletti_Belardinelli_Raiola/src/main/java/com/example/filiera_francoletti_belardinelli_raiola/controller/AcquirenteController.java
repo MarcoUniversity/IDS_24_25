@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.Acquirente;
+import com.example.filiera_francoletti_belardinelli_raiola.model.users.Acquirente;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.AcquirenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

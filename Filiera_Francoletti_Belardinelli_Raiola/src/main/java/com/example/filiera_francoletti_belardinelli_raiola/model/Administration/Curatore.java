@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Administration;
+package com.example.filiera_francoletti_belardinelli_raiola.model.administration;
 import jakarta.persistence.*;
 
 /**

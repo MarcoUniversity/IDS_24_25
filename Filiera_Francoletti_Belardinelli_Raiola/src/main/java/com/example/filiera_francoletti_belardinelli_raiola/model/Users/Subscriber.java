@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Users;
+package com.example.filiera_francoletti_belardinelli_raiola.model.users;
 
 /**
  * Interfaccia che definisce il comportamento di un subscriber.

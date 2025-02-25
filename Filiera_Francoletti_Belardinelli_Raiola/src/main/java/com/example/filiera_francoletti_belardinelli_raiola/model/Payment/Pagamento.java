@@ -1,6 +1,6 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Payment;
+package com.example.filiera_francoletti_belardinelli_raiola.model.payment;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.Acquirente;
+import com.example.filiera_francoletti_belardinelli_raiola.model.users.Acquirente;
 import jakarta.persistence.*;
 
 /**

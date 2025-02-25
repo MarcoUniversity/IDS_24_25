@@ -1,7 +1,7 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Social.ContenutoSocial;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.social.ContenutoSocial;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.ProdottoRepository;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.SocialRepository;
 import org.springframework.beans.factory.annotation.Autowired;

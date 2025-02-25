@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Payment;
+package com.example.filiera_francoletti_belardinelli_raiola.model.payment;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

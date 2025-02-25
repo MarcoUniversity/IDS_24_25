@@ -1,10 +1,10 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Sellers.Venditore;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Social.ContenutoSocial;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Social.Social;
+import com.example.filiera_francoletti_belardinelli_raiola.model.map.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.sellers.Venditore;
+import com.example.filiera_francoletti_belardinelli_raiola.model.social.ContenutoSocial;
+import com.example.filiera_francoletti_belardinelli_raiola.model.social.Social;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

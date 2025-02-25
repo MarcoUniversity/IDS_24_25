@@ -1,8 +1,8 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Administration;
+package com.example.filiera_francoletti_belardinelli_raiola.model.administration;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Evento;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Mappa;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.events.Evento;
+import com.example.filiera_francoletti_belardinelli_raiola.model.map.Mappa;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

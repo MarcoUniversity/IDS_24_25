@@ -1,6 +1,6 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Events;
+package com.example.filiera_francoletti_belardinelli_raiola.model.events;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Sellers.Venditore;
+import com.example.filiera_francoletti_belardinelli_raiola.model.sellers.Venditore;
 import jakarta.persistence.*;
 
 /**

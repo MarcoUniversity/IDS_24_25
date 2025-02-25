@@ -1,6 +1,6 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Events;
+package com.example.filiera_francoletti_belardinelli_raiola.model.events;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.model.map.Indirizzo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;

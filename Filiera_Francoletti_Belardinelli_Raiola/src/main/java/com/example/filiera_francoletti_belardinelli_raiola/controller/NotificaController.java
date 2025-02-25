@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.Notifica;
+import com.example.filiera_francoletti_belardinelli_raiola.model.users.Notifica;
 import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerNotifica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

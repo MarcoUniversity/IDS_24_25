@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Invito;
+import com.example.filiera_francoletti_belardinelli_raiola.model.events.Invito;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.InvitoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.controller;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Social.ContenutoSocial;
+import com.example.filiera_francoletti_belardinelli_raiola.model.social.ContenutoSocial;
 import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerSocial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

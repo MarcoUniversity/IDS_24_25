@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Users;
+package com.example.filiera_francoletti_belardinelli_raiola.model.users;
 
 import jakarta.persistence.Entity;
 

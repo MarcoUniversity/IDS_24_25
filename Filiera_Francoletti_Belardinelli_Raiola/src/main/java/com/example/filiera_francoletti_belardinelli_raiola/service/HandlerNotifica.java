@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.Notifica;
+import com.example.filiera_francoletti_belardinelli_raiola.model.users.Notifica;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.NotificaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

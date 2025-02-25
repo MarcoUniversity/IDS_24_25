@@ -1,7 +1,7 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Social;
+package com.example.filiera_francoletti_belardinelli_raiola.model.social;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Sellers.Venditore;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.sellers.Venditore;
 import jakarta.persistence.*;
 
 /**

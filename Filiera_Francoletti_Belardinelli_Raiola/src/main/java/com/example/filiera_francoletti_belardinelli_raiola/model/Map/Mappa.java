@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Map;
+package com.example.filiera_francoletti_belardinelli_raiola.model.map;
 
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;

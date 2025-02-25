@@ -1,8 +1,8 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Events;
+package com.example.filiera_francoletti_belardinelli_raiola.model.events;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.Subscriber;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Users.UtenteGenerico;
+import com.example.filiera_francoletti_belardinelli_raiola.model.map.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.model.users.Subscriber;
+import com.example.filiera_francoletti_belardinelli_raiola.model.users.UtenteGenerico;
 import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerNotifica;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Invito;
+import com.example.filiera_francoletti_belardinelli_raiola.model.events.Invito;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

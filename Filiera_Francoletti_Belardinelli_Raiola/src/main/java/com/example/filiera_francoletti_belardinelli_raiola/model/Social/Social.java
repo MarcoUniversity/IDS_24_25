@@ -1,4 +1,4 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Social;
+package com.example.filiera_francoletti_belardinelli_raiola.model.social;
 
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;

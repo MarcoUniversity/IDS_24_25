@@ -1,10 +1,7 @@
-package com.example.filiera_francoletti_belardinelli_raiola.model.Sellers;
+package com.example.filiera_francoletti_belardinelli_raiola.model.sellers;
 
-import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerInvito;
-import com.example.filiera_francoletti_belardinelli_raiola.service.HandlerVenditore;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Map.Indirizzo;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Invito;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.model.map.Indirizzo;
+import com.example.filiera_francoletti_belardinelli_raiola.model.product.Prodotto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
