@@ -40,7 +40,7 @@ public class Acquirente extends UtenteGenerico {
         return buyerHandler.pay(this).getInvoice();
     }
 
-    public void removeProduct(int id) {
+    public void removeProduct(Long id) {
         buyerHandler.removeProduct(id);
     }
 

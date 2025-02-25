@@ -33,7 +33,7 @@ public class HandlerAcquirente {
         return pagamento;
     }
 
-    public void removeProduct(int id) {
+    public void removeProduct(Long id) {
         this.shoppingCart.removeProduct(id);
     }
 

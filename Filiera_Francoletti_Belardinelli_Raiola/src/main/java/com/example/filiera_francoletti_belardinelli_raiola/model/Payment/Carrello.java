@@ -26,7 +26,7 @@ public class Carrello {
         }
     }
 
-    public void removeProduct(int id) {
+    public void removeProduct(Long id) {
         products.removeIf(product -> product.getId().intValue() == id);
     }
 
