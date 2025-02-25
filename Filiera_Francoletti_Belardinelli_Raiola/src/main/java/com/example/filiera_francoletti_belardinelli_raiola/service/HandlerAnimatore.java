@@ -1,10 +1,7 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
 import com.example.filiera_francoletti_belardinelli_raiola.model.Administration.Piattaforma;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.AnimatoreDellaFiliera;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Evento;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Events.Invito;
-import com.example.filiera_francoletti_belardinelli_raiola.model.Sellers.Venditore;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
