@@ -22,15 +22,32 @@ public class HandlerAcquirente {
     }
 
     public void addProduct(Long id) {
-        Piattaforma pt = Piattaforma.getPlatform();
-        Prodotto p = pt.getProductByID(id);
-        this.shoppingCart.addProduct(p);
+        Prodotto product = Piattaforma.getPlatform().getProductByID(id);
+        if (product == null) {
+            throw new RuntimeException("Prodotto non trovato con id: " + id);
+        }
+        this.shoppingCart.addProduct(product);
     }
 
     public Pagamento pay(Acquirente payer) {
-        Pagamento pagamento = new Pagamento(payer, this.shoppingCart, new Ricevuta("Invoice for purchase"));
+        String invoiceContent = generateInvoice(this.shoppingCart);
+        Ricevuta invoice = new Ricevuta(invoiceContent);
+        Pagamento pagamento = new Pagamento(payer, this.shoppingCart, invoice);
         this.payments.add(pagamento);
+        this.shoppingCart.clearProducts();
         return pagamento;
+    }
+
+    private String generateInvoice(Carrello cart) {
+        double total = 0;
+        StringBuilder sb = new StringBuilder("Ricevuta:\n");
+        for (Prodotto p : cart.getProducts()) {
+            sb.append("Prodotto: ").append(p.getName())
+                    .append(" - Prezzo: ").append(p.getPrice()).append("\n");
+            total += p.getPrice();
+        }
+        sb.append("Totale: ").append(total);
+        return sb.toString();
     }
 
     public void removeProduct(Long id) {
@@ -46,7 +63,7 @@ public class HandlerAcquirente {
     }
 
     public List<Pagamento> getPayments() {
-        return payments;
+        return this.payments;
     }
 
     public void setPayments(List<Pagamento> payments) {
