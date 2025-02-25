@@ -9,26 +9,44 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller per la gestione degli inviti agli eventi.
+ * Fornisce operazioni CRUD per gli inviti.
+ */
 @RestController
 @RequestMapping("/api/v1/inviti")
 public class InvitoController {
 
     private final InvitoRepository invitoRepository;
 
+    /**
+     * Costruttore per iniettare il repository degli inviti.
+     *
+     * @param invitoRepository il repository degli inviti
+     */
     @Autowired
     public InvitoController(InvitoRepository invitoRepository) {
         this.invitoRepository = invitoRepository;
     }
 
-    // Crea un nuovo invito
+    /**
+     * Crea un nuovo invito.
+     *
+     * @param invito l'invito da creare
+     * @return ResponseEntity contenente l'invito creato con stato HTTP 201 (Created)
+     */
     @PostMapping
     public ResponseEntity<Invito> createInvito(@RequestBody Invito invito) {
-        // Assicurati che l'oggetto invito contenga almeno sender, receiver ed event con i loro ID (e se necessario il campo "tipo" per il polimorfismo)
         Invito saved = invitoRepository.save(invito);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    // Recupera un invito per ID
+    /**
+     * Recupera un invito dato il suo ID.
+     *
+     * @param id l'ID dell'invito
+     * @return ResponseEntity contenente l'invito se trovato, altrimenti HTTP 404 (Not Found)
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Invito> getInvitoById(@PathVariable Long id) {
         return invitoRepository.findById(id)
@@ -36,14 +54,24 @@ public class InvitoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Recupera tutti gli inviti
+    /**
+     * Recupera tutti gli inviti esistenti.
+     *
+     * @return ResponseEntity contenente la lista degli inviti con stato HTTP 200 (OK)
+     */
     @GetMapping
     public ResponseEntity<List<Invito>> getAllInviti() {
         List<Invito> inviti = invitoRepository.findAll();
         return ResponseEntity.ok(inviti);
     }
 
-    // Aggiorna un invito
+    /**
+     * Aggiorna un invito esistente.
+     *
+     * @param id         l'ID dell'invito da aggiornare
+     * @param invitoData i nuovi dati dell'invito
+     * @return ResponseEntity contenente l'invito aggiornato se esiste, altrimenti HTTP 404 (Not Found)
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Invito> updateInvito(@PathVariable Long id, @RequestBody Invito invitoData) {
         return invitoRepository.findById(id)
@@ -58,11 +86,15 @@ public class InvitoController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    // Elimina un invito per ID
+    /**
+     * Elimina un invito dato il suo ID.
+     *
+     * @param id l'ID dell'invito da eliminare
+     * @return ResponseEntity con stato HTTP 204 (No Content) se eliminato con successo
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInvito(@PathVariable Long id) {
         invitoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
-
