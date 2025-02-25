@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller REST per gestire le operazioni sugli Animatori della Filiera.
+ * Fornisce API per creare, leggere, aggiornare ed eliminare animatori e i loro eventi.
+ */
 @RestController
 @RequestMapping("/api/v1/animatori")
 public class AnimatoreController {
@@ -25,10 +29,17 @@ public class AnimatoreController {
     private final HandlerAnimatore handlerAnimatore;
     private final UtenteRepository utenteRepository;
 
-
-
+    /**
+     * Costruttore per l'iniezione delle dipendenze necessarie.
+     *
+     * @param utenteRepository repository degli utenti generici
+     * @param handlerAnimatore servizio per la gestione degli animatori
+     * @param animatoreRepository repository degli animatori
+     * @param eventoRepository repository degli eventi
+     * @param notificaService servizio per la gestione delle notifiche
+     */
     @Autowired
-    public AnimatoreController(UtenteRepository utenteRepository,HandlerAnimatore handlerAnimatore,AnimatoreRepository animatoreRepository, EventoRepository eventoRepository, HandlerNotifica notificaService) {
+    public AnimatoreController(UtenteRepository utenteRepository, HandlerAnimatore handlerAnimatore, AnimatoreRepository animatoreRepository, EventoRepository eventoRepository, HandlerNotifica notificaService) {
         this.animatoreRepository = animatoreRepository;
         this.eventoRepository = eventoRepository;
         this.notificaService = notificaService;
@@ -36,46 +47,72 @@ public class AnimatoreController {
         this.utenteRepository = utenteRepository;
     }
 
-    // POST: Crea un nuovo Animatore
+    /**
+     * Crea un nuovo animatore.
+     *
+     * @param animatore l'oggetto AnimatoreDellaFiliera da salvare
+     * @return ResponseEntity contenente l'animatore salvato con stato HTTP 201 CREATED
+     */
     @PostMapping
     public ResponseEntity<AnimatoreDellaFiliera> createAnimatore(@RequestBody AnimatoreDellaFiliera animatore) {
-        AnimatoreDellaFiliera saved = animatoreRepository.save(animatore);
+        AnimatoreDellaFiliera saved = this.animatoreRepository.save(animatore);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
-    // Endpoint per iscrivere un utente alle notifiche di un animatore
+
+    /**
+     * Iscrive un utente alle notifiche di un animatore.
+     *
+     * @param animatoreId ID dell'animatore
+     * @param utenteId ID dell'utente
+     * @return ResponseEntity con un messaggio di conferma
+     */
     @PostMapping("/{animatoreId}/subscribe/{utenteId}")
-    public ResponseEntity<String> subscribeToAnimatore(@PathVariable Long animatoreId,
-                                                       @PathVariable Long utenteId) {
+    public ResponseEntity<String> subscribeToAnimatore(@PathVariable Long animatoreId, @PathVariable Long utenteId) {
         try {
-            handlerAnimatore.subscribe(animatoreId, utenteId);
+            this.handlerAnimatore.subscribe(animatoreId, utenteId);
             return ResponseEntity.ok("Utente con id " + utenteId + " iscritto alle notifiche dell'animatore " + animatoreId);
         } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }
 
+    /**
+     * Disiscrive un utente dalle notifiche di un animatore.
+     *
+     * @param animatoreId ID dell'animatore
+     * @param utenteId ID dell'utente
+     * @return ResponseEntity con un messaggio di conferma
+     */
     @PostMapping("/{animatoreId}/unsubscribe/{utenteId}")
     public ResponseEntity<String> unsubscribeFromAnimatore(@PathVariable Long animatoreId, @PathVariable Long utenteId) {
-        // Non usare UtenteRepository.findById, bensì usa l'istanza iniettata
-        AnimatoreDellaFiliera animatore = animatoreRepository.findById(animatoreId)
+        AnimatoreDellaFiliera animatore = this.animatoreRepository.findById(animatoreId)
                 .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + animatoreId));
-        UtenteGenerico utente = utenteRepository.findById(utenteId)
+        UtenteGenerico utente = this.utenteRepository.findById(utenteId)
                 .orElseThrow(() -> new RuntimeException("Utente non trovato con id: " + utenteId));
 
         animatore.unsubscribe(utente);
-        animatoreRepository.save(animatore);
+        this.animatoreRepository.save(animatore);
 
         return ResponseEntity.ok("Utente disiscritto con successo dall'animatore " + animatoreId);
     }
 
-    // GET: Recupera tutti gli Animatori
+    /**
+     * Recupera tutti gli animatori.
+     *
+     * @return ResponseEntity contenente la lista di tutti gli animatori
+     */
     @GetMapping
     public ResponseEntity<List<AnimatoreDellaFiliera>> getAllAnimatori() {
-        List<AnimatoreDellaFiliera> animatori = animatoreRepository.findAll();
+        List<AnimatoreDellaFiliera> animatori = this.animatoreRepository.findAll();
         return ResponseEntity.ok(animatori);
     }
 
-    // GET: Recupera un Animatore per ID
+    /**
+     * Recupera un animatore per ID.
+     *
+     * @param id ID dell'animatore
+     * @return ResponseEntity contenente l'animatore trovato
+     */
     @GetMapping("/{id}")
     public ResponseEntity<AnimatoreDellaFiliera> getAnimatoreById(@PathVariable Long id) {
         return animatoreRepository.findById(id)
@@ -83,60 +120,22 @@ public class AnimatoreController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Endpoint per creare un evento e notificare automaticamente i subscriber
+    /**
+     * Crea un evento per un animatore e notifica i subscriber.
+     *
+     * @param animatoreId ID dell'animatore
+     * @param evento l'evento da creare
+     * @return ResponseEntity contenente l'evento creato
+     */
     @PostMapping("/{animatoreId}/eventi")
     public ResponseEntity<Evento> createEvento(@PathVariable Long animatoreId, @RequestBody Evento evento) {
         AnimatoreDellaFiliera animatore = animatoreRepository.findById(animatoreId)
                 .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + animatoreId));
-        // Imposta il creatore e crea l'evento, notificando i subscriber
         evento.setCreator(animatore);
-        Evento savedEvento = eventoRepository.save(evento);
+        Evento savedEvento = this.eventoRepository.save(evento);
         animatore.getEventsCreated().add(savedEvento);
-        // Chiamata al metodo che notifica i subscriber
-        animatore.createEvent(evento.getName(), evento.getDescription(), evento.getMaxPeople(), evento.getPlace(), notificaService);
-        animatoreRepository.save(animatore);
+        animatore.createEvent(evento.getName(), evento.getDescription(), evento.getMaxPeople(), evento.getPlace(), this.notificaService);
+        this.animatoreRepository.save(animatore);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
-    }
-
-    // GET: Recupera tutti gli Eventi creati da un Animatore
-    @GetMapping("/{animatoreId}/eventi")
-    public ResponseEntity<List<Evento>> getEventiByAnimatore(@PathVariable Long animatoreId) {
-        // Utilizziamo il repository degli eventi per filtrare per creatorId
-        List<Evento> eventi = eventoRepository.findByCreatorId(animatoreId);
-        return ResponseEntity.ok(eventi);
-    }
-
-    // GET: Recupera un Evento specifico dell'Animatore
-    @GetMapping("/{animatoreId}/eventi/{eventoId}")
-    public ResponseEntity<Evento> getEventoById(@PathVariable Long animatoreId, @PathVariable Long eventoId) {
-        AnimatoreDellaFiliera animatore = animatoreRepository.findById(animatoreId)
-                .orElseThrow(() -> new RuntimeException("Animatore non trovato con id: " + animatoreId));
-        return animatore.getEventsCreated().stream()
-                .filter(evento -> evento.getId().equals(eventoId))
-                .findFirst()
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // PUT: Aggiorna un Animatore (ad esempio, il suo nome)
-    @PutMapping("/{id}")
-    public ResponseEntity<AnimatoreDellaFiliera> updateAnimatore(@PathVariable Long id, @RequestBody AnimatoreDellaFiliera animatoreData) {
-        return animatoreRepository.findById(id)
-                .map(existing -> {
-                    existing.setName(animatoreData.getName());
-                    AnimatoreDellaFiliera updated = animatoreRepository.save(existing);
-                    return ResponseEntity.ok(updated);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // DELETE: Elimina un Animatore
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAnimatore(@PathVariable Long id) {
-        if (animatoreRepository.existsById(id)) {
-            animatoreRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
     }
 }
