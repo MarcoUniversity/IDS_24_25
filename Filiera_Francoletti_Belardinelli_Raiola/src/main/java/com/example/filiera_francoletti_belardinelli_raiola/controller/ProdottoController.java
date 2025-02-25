@@ -42,8 +42,21 @@ public class ProdottoController {
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+    @GetMapping
+    public ResponseEntity<List<Prodotto>> getAllProducts() {
+        // Restituisce solo i prodotti verificati
+        List<Prodotto> prodotti = prodottoRepository.findByStateTrue();
+        return ResponseEntity.ok(prodotti);
+    }
 
-    // GET: restituisce solo i prodotti verificati (state == true)
+    @GetMapping("/venditore/{sellerId}")
+    public ResponseEntity<List<Prodotto>> getProductsBySeller(@PathVariable Long sellerId) {
+        List<Prodotto> prodotti = prodottoRepository.findBySellerIdAndStateTrue(sellerId);
+        return ResponseEntity.ok(prodotti);
+    }
+
+
+    /* GET: restituisce solo i prodotti verificati (state == true)
     @GetMapping
     public ResponseEntity<List<Prodotto>> getAllProducts() {
         List<Prodotto> all = prodottoRepository.findAll();
@@ -51,7 +64,7 @@ public class ProdottoController {
                 .filter(Prodotto::isState)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(prodottiVerificati);
-    }
+    }*/
 
     // GET: restituisce il prodotto se esiste e se è verificato, altrimenti 404
     @GetMapping("/{id}")
@@ -74,7 +87,7 @@ public class ProdottoController {
         return ResponseEntity.noContent().build();
     }
 
-    // GET: Recupera i prodotti di un venditore (solo quelli verificati)
+    /* GET: Recupera i prodotti di un venditore (solo quelli verificati)
     @GetMapping("/venditore/{sellerId}")
     public ResponseEntity<List<Prodotto>> getProductsBySeller(@PathVariable Long sellerId) {
         List<Prodotto> prodotti = prodottoRepository.findAll().stream()
@@ -83,6 +96,6 @@ public class ProdottoController {
                         && p.isState())
                 .collect(Collectors.toList());
         return ResponseEntity.ok(prodotti);
-    }
+    }*/
 }
 

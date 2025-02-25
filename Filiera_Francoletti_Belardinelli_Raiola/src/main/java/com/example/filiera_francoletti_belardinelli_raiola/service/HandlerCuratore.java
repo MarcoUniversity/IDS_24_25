@@ -1,12 +1,10 @@
 package com.example.filiera_francoletti_belardinelli_raiola.service;
 
-import com.example.filiera_francoletti_belardinelli_raiola.model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
 import com.example.filiera_francoletti_belardinelli_raiola.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,4 +35,3 @@ public class HandlerCuratore {
         return prodottoRepository.findBySellerIdAndStateTrue(vendorId);
     }
 }
-

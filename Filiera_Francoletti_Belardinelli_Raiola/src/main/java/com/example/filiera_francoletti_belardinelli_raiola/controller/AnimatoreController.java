@@ -59,16 +59,22 @@ public class AnimatoreController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
     }
 
-
-
     @GetMapping("/{id}/eventi")
+    public ResponseEntity<List<Evento>> getEventiByAnimatore(@PathVariable Long id) {
+        List<Evento> eventi = eventoRepository.findByCreatorId(id);
+        return ResponseEntity.ok(eventi);
+    }
+
+
+
+    /*@GetMapping("/{id}/eventi")
     public ResponseEntity<List<Evento>> getEventiByAnimatore(@PathVariable Long id) {
         AnimatoreDellaFiliera animatore = animatoreRepository.findById(id).orElse(null);
         if (animatore == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(animatore.getEventsCreated());
-    }
+    }*/
     @PutMapping("/{id}")
     public ResponseEntity<AnimatoreDellaFiliera> updateAnimatore(@PathVariable Long id, @RequestBody AnimatoreDellaFiliera animatoreData) {
         return animatoreRepository.findById(id)

@@ -8,8 +8,13 @@ import java.util.List;
 
 @Repository
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
-    List<Prodotto> findBySellerId(Long sellerId);
-    List<Prodotto> findBySellerIdAndStateTrue(Long sellerId);
+    // Restituisce tutti i prodotti verificati (state == true)
+    List<Prodotto> findByStateTrue();
+
+    // Restituisce tutti i prodotti non verificati (state == false)
     List<Prodotto> findByStateFalse();
+
+    // Restituisce i prodotti verificati per un venditore specifico
+    List<Prodotto> findBySellerIdAndStateTrue(Long sellerId);
 }
 
