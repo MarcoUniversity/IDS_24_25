@@ -25,15 +25,11 @@ public class HandlerAcquirente {
         this.shoppingCart = new Carrello();
         this.payments = new ArrayList<>();
     }
-
-    // Aggiunge un prodotto al carrello recuperandolo dal repository
     public void addProduct(Long productId) {
         Prodotto product = prodottoRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Prodotto non trovato con id: " + productId));
         this.shoppingCart.addProduct(product);
     }
-
-    // Rimuove un prodotto dal carrello per id
     public void removeProduct(Long productId) {
         this.shoppingCart.removeProduct(productId);
     }

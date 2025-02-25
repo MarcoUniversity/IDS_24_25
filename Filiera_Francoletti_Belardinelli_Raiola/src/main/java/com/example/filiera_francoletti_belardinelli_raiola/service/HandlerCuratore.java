@@ -2,56 +2,39 @@ package com.example.filiera_francoletti_belardinelli_raiola.service;
 
 import com.example.filiera_francoletti_belardinelli_raiola.model.Administration.Piattaforma;
 import com.example.filiera_francoletti_belardinelli_raiola.model.Product.Prodotto;
+import com.example.filiera_francoletti_belardinelli_raiola.repository.ProdottoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class
-HandlerCuratore {
-    private List<Prodotto> productsToVerify;
+public class HandlerCuratore {
 
-    public HandlerCuratore(List<Prodotto> productsToVerify) {
-        if (productsToVerify == null) {
-            this.productsToVerify = new ArrayList<>();
-        } else {
-            this.productsToVerify = productsToVerify;
-        };
+    private final ProdottoRepository prodottoRepository;
+
+    @Autowired
+    public HandlerCuratore(ProdottoRepository prodottoRepository) {
+        this.prodottoRepository = prodottoRepository;
     }
 
-    public List<Prodotto> getProductsToVerify() {
-        return productsToVerify;
+    // Restituisce tutti i prodotti non verificati (state == false)
+    public List<Prodotto> getPendingProducts() {
+        return prodottoRepository.findByStateFalse();
     }
 
-    public void setProductsToVerify(List<Prodotto> productsToVerify) {
-        this.productsToVerify = productsToVerify;
+    // Imposta state a true per il prodotto indicato e lo salva
+    public Prodotto verifyProduct(Long productId) {
+        Prodotto product = prodottoRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Prodotto non trovato con id: " + productId));
+        product.setState(true);
+        return prodottoRepository.save(product);
     }
 
-    public Prodotto getProductById(int id) {
-        if (productsToVerify != null) {
-            for (Prodotto product : productsToVerify) {
-                if (product.getId() == id) {
-                    return product;
-                }
-            }
-        }
-        return null;
-    }
-
-    public void verifyProduct(int id) {
-        Prodotto product = getProductById(id);
-        if (product != null) {
-            product.setState(true);
-            productsToVerify.remove(product);
-        }
-    }
-
-    public void upload(Prodotto product) {
-        if (product != null) {
-            Piattaforma platform = Piattaforma.getPlatform();
-            platform.addProductInPlatform(product);
-        }
+    // Restituisce i prodotti verificati per un dato venditore
+    public List<Prodotto> getVerifiedProductsByVendor(Long vendorId) {
+        return prodottoRepository.findBySellerIdAndStateTrue(vendorId);
     }
 }
 
